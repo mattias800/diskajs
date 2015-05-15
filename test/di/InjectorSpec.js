@@ -39,7 +39,6 @@ describe('Injector', function() {
         assert(incString1.getString() !== incString2.getString());
     });
 
-
     it('should reuse objects if specified as singleton', function() {
         var module = new Module();
         module.bind(IncString).to(IncString).asSingleton();
@@ -48,7 +47,6 @@ describe('Injector', function() {
         var incString2 = injector.get(IncString);
         assert(incString1.getString() === incString2.getString());
     });
-
 
     it('should reuse objects if specified as singleton that is not injected', function() {
         var module = new Module();
