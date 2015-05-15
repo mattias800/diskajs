@@ -279,5 +279,9 @@ Please create a ticket or send a pull request.
 
 ## In the future
 
-* Support for ES7 decorators, with @Inject, @Provider and @Singleton.
+#### ES7 decorators
+
+Support for ES7 decorators, with `@Inject`, `@Provider` and `@Singleton`.
+This will complement `inject()`, so that you can use either one.
+This feature is in development.
 
