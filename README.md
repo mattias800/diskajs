@@ -166,7 +166,7 @@ export class WheelProvider extends Provider {
 This way we delegate the responsibility of instantiating the class to the provider, and diska will 
 instantiate the `WheelProvider` and run `get()` to get the Wheel instance.
 
-### Providers can have dependencies
+#### Providers can have dependencies
 
 If you want, you can add an `inject()` to your provider and these dependencies will be injected.
 
