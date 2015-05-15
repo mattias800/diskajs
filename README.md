@@ -130,9 +130,10 @@ list of types (functions in ES5, classes in ES6) to inject.
 (If they don't have an inject() method, we can still create them with a provider.
 More on that below.)
 
-### ES5
+#### ES5
 
-If you are running ES5, you can use functions and set the `inject` property.
+If you are running ES5, you don't have classes. 
+Instead, you can use functions and set the `inject` property on the function.
 
 ```
 var Grinder = require('./Grinder');
