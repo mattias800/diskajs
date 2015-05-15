@@ -277,6 +277,14 @@ The provider will only be instantiated once, and `get()` will only be called onc
 Did you find any issues? Did you fix a bug?
 Please create a ticket or send a pull request.
 
+## Running the tests
+
+```
+npm test
+```
+
+If you have Wallaby, you can open the project in IntelliJ and start Wallaby.
+
 ## In the future
 
 #### ES7 decorators
