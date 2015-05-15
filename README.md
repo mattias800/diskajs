@@ -25,7 +25,9 @@ The tests contain a lot of sample code.
 https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
 You can also check out there repositories:
+
 https://github.com/mattias800/diskajs-react-native-example
+
 https://github.com/mattias800/diskajs-examples
 
 ## Dependency injection
