@@ -48,7 +48,7 @@ https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 #### About the examples
 
 Most of these examples are copied from the tests.
-Because of this, some module reference look different from your code.
+Because of this, some module reference look different from how they would in application code.
 
 ```
 import {Provider} from '../../src/index';
@@ -98,7 +98,7 @@ export class CoffeeMaker {
 }
 ```
 
-Grinder has no dependencies, so diska instantiates the `Grinder` by running its constructor
+`Grinder` has no dependencies, so diska instantiates the `Grinder` by running its constructor
 with no parameters.
  
 ```
