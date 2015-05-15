@@ -45,16 +45,38 @@ https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
 ## Tutorial
 
-Most of these examples are copied from the tests. Check them out.
+#### About the examples
+
+Most of these examples are copied from the tests.
+Because of this, some module reference look different from your code.
+
+```
+import {Provider} from '../../src/index';
+```
+
+This import statement for example, would be replaced with require() (depending on your environment).
+
+```
+var Provider = require('diska');
+```
+
+### Injecting class instances
 
 In diska, you use modules, providers and injectors.
 
 The module defines the bindings, while the injector instantiates the objects.
 
-Classes that are instantiated must have a static method `inject` which returns a 
-list of types (functions in ES5, classes in ES6) to inject.
+```
+var module = new Module();
+module.bind(Grinder).to(Grinder);
+module.bind(CoffeeMaker).to(CoffeeMaker);
+var injector = new Injector(module);
+var coffeeMaker = injector.get(CoffeeMaker);
+coffeeMaker.brew();
+```
 
-An example of a class that can be injected:
+In this example, diska will try to create a `CoffeeMaker`. When doing so, it calls CoffeeMaker.inject()
+and identifies that the `CoffeeMaker` requires a `Grinder`. 
 
 ```
 import {Grinder} from './Grinder';
@@ -76,8 +98,37 @@ export class CoffeeMaker {
 }
 ```
 
-When diska tries to instantiate a CoffeeMaker object, it will look up all 
-dependencies by calling `inject()` and try to instantiate them.
+Grinder has no dependencies, so diska instantiates the `Grinder` by running its constructor
+with no parameters.
+ 
+```
+export class Grinder {
+
+    static inject() {
+        return [];
+    }
+
+    constructor() {
+
+    }
+
+    grind() {
+        console.log('grinding...');
+    }
+
+}
+```
+
+The `Grinder` object is then passed into the `CoffeeMaker` constructor and 
+diska then returns the `CoffeeMaker` object.
+
+### inject() required
+
+Classes that are injected must have a static method `inject` which returns a 
+list of types (functions in ES5, classes in ES6) to inject.
+
+(If they don't have an inject() method, we can still create them with a provider.
+More on that below.)
 
 ### ES5
 
