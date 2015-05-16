@@ -25,7 +25,7 @@ You could also download the repository and just reference the files directly.
 The tests contain a lot of sample code.
 https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
-You can also check out there repositories:
+You can also check out these repositories:
 
 https://github.com/mattias800/diskajs-react-native-example
 
@@ -189,6 +189,26 @@ var coffeeMaker = injector.get(CoffeeMaker);
 coffeeMaker.brew();
 ```
 
+#### Using multiple modules
+
+The injector constructor can take multiple arguments, where all arguments are modules,
+or one array with modules.
+
+```
+var module1 = new Module();
+var module2 = new Module();
+var injector = new Injector([module1, module2]);
+```
+
+```
+var module1 = new Module();
+var module2 = new Module();
+var injector = new Injector(module1, module2);
+```
+
+If multiple modules contain binding for the same type, the binding of the first module
+in the array or arguments will be used.
+
 ### Providers
 
 If the class we are trying to inject lacks an `inject()` method, the injector
@@ -272,6 +292,27 @@ When a class depends on a `UserService` the `UserServiceProvider` will be
 instantiated, `get()` will be called and the returned object will be reused
 whenever any other class depends on `UserService`.
 The provider will only be instantiated once, and `get()` will only be called once.
+
+### Child injectors
+
+diska supports child injectors.
+You can get a child injector from an injector by calling `injector.getChildInjector()`
+with one or more modules for the child injector as argument.
+
+```
+var module = new Module();
+module.bind(GlobalService).toProvider(GlobalServiceProvider).asSingleton();
+var injector = new Injector(module);
+var childModule = new Module();
+childModule.bind(LocalService).toProvider(LocalServiceProvider);
+var childInjector = injector.getChildInjector(childModule);
+var service = childInjector.get(LocalService);
+var error = injector.get(LocalService); // Throws exception
+```
+
+Modules added to the child injectors will not be available in the parent injector.
+The bindings in the child injector module are derived from the parent injector module.
+If the binding already exists in the parent, it is overridden.
 
 ## Issues
 
