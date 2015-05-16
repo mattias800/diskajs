@@ -22,7 +22,8 @@ You could also download the repository and just reference the files directly.
 
 ## Example code
 
-The tests contain a lot of sample code.
+The tests contain a lot of sample code. They test all features of diska.
+
 https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
 You can also check out this repository to see how to setup diska with Node or React Native:
@@ -35,11 +36,6 @@ To learn how dependency injection and Guice works, please see the Guice document
 All diska documentation assumes that you have previous experience with Guice and DI.
 While this is not a clone of Guice, it is inspired by it and anyone who has used Guice
 will be instantly familiar with diska.
-
-## Full documentation
-
-Please see the tests. They contain all implemented use cases.
-https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
 ## Tutorial
 
