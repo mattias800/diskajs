@@ -221,7 +221,8 @@ export class Wheel {
 }
 ```
 
-You can supply the module with a provider for Wheel.
+You can supply the module with a provider for Wheel. The provider must extend 
+the Provider class in diska.
 
 ```
 import {Provider} from '../../src/index';
