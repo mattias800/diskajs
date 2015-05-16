@@ -48,13 +48,13 @@ https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 Most of these examples are copied from the tests.
 Because of this, some module reference look different from how they would in application code.
 
-```
+```js
 import {Provider} from '../../src/index';
 ```
 
 This import statement for example, would be replaced with require() (depending on your environment).
 
-```
+```js
 var Provider = require('diska');
 ```
 
@@ -64,7 +64,7 @@ In diska, you use modules, providers and injectors.
 
 The module defines the bindings, while the injector instantiates the objects.
 
-```
+```js
 var module = new Module();
 module.bind(Grinder).to(Grinder);
 module.bind(CoffeeMaker).to(CoffeeMaker);
@@ -76,7 +76,7 @@ coffeeMaker.brew();
 In this example, diska will try to create a `CoffeeMaker`. When doing so, it calls CoffeeMaker.inject()
 and identifies that the `CoffeeMaker` requires a `Grinder`. 
 
-```
+```js
 import {Grinder} from './Grinder';
 
 export class CoffeeMaker {
@@ -99,7 +99,7 @@ export class CoffeeMaker {
 `Grinder` has no dependencies, so diska instantiates the `Grinder` by running its constructor
 with no parameters.
  
-```
+```js
 export class Grinder {
 
     static inject() {
@@ -133,7 +133,7 @@ More on that below.)
 If you are running ES5, you don't have classes. 
 Instead, you can use functions and set the `inject` property on the function.
 
-```
+```js
 var Grinder = require('./Grinder');
 
 function CoffeeMaker(grinder) {
@@ -155,7 +155,7 @@ CoffeeMaker.inject = function() {
 
 A module is a configuration that defines what the injector should inject.
 
-```
+```js
 var module = new Module();
 module.bind(Grinder).to(Grinder);
 module.bind(CoffeeMaker).to(CoffeeMaker);
@@ -167,7 +167,7 @@ coffeeMaker.brew();
 In this example we only have one type of Grinder and CoffeeMaker.
 Binding a class to itself is optional and we can remove them.
 
-```
+```js
 var module = new Module();
 var injector = new Injector(module);
 var coffeeMaker = injector.get(CoffeeMaker);
@@ -178,7 +178,7 @@ When there is no binding, and we try to inject `CoffeeMaker`, it will just injec
 
 But you could easily pass in a mock instead, for example when running tests.
 
-```
+```js
 var module = new Module();
 module.bind(Grinder).to(GrinderMock);
 var injector = new Injector(module);
@@ -191,13 +191,13 @@ coffeeMaker.brew();
 The injector constructor can take multiple arguments, where all arguments are modules,
 or one array with modules.
 
-```
+```js
 var module1 = new Module();
 var module2 = new Module();
 var injector = new Injector([module1, module2]);
 ```
 
-```
+```js
 var module1 = new Module();
 var module2 = new Module();
 var injector = new Injector(module1, module2);
@@ -211,7 +211,7 @@ in the array or arguments will be used.
 If the class we are trying to inject lacks an `inject()` method, the injector
 won't know how to instantiate a class. It will fail with an exception.
 
-```
+```js
 export class Wheel {
 
     constructor(material) {
@@ -224,7 +224,7 @@ export class Wheel {
 You can supply the module with a provider for Wheel. The provider must extend 
 the Provider class in diska.
 
-```
+```js
 import {Provider} from '../../src/index';
 import {Wheel} from './Wheel';
 
@@ -243,7 +243,7 @@ instantiate the `WheelProvider` and run `get()` to get the Wheel instance.
 
 If you want, you can add an `inject()` to your provider and these dependencies will be injected.
 
-```
+```js
 import {Provider} from '../../src/index';
 import {AnyString} from './AnyString';
 
@@ -270,7 +270,7 @@ export class InjectedAnyStringProvider extends Provider {
 Some objects, such as services, should be reused and only instantiated once.
 That instance will be reused whereever it is needed.
 
-```
+```js
 module.bind(UserService).to(UserServiceRestApi).asSingleton();
 ```
 
@@ -282,7 +282,7 @@ and after that, whenever a class needs a `UserService`, that instance of the
 
 You can use providers to instantiate singletons as well.
 
-```
+```js
 module.bind(UserService).toProvider(UserServiceProvider).asSingleton();
 ```
 
@@ -297,7 +297,7 @@ diska supports child injectors.
 You can get a child injector from an injector by calling `injector.getChildInjector()`
 with one or more modules for the child injector as argument.
 
-```
+```js
 var module = new Module();
 module.bind(GlobalService).toProvider(GlobalServiceProvider).asSingleton();
 var injector = new Injector(module);
