@@ -10,9 +10,9 @@ npm install diska
 
 You could also download the repository and just reference the files directly.
 
-`src/index.js` for ES6.
+`src/index.js` for ES6 sources.
 
-`lib/index.js` for ES5 that was compiled with Babel.
+`lib/index.js` for ES5 sources that was compiled from ES6 sources with Babel.
 
 ## Compatibility
 
