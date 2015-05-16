@@ -25,7 +25,7 @@ You could also download the repository and just reference the files directly.
 The tests contain a lot of sample code.
 https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js
 
-You can also check out these repositories:
+You can also check out this repository to see how to setup diska with Node or React Native:
 
 https://github.com/mattias800/diskajs-examples
 
