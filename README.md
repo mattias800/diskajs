@@ -181,7 +181,6 @@ But you could easily pass in a mock instead, for example when running tests.
 ```
 var module = new Module();
 module.bind(Grinder).to(GrinderMock);
-module.bind(CoffeeMaker).to(CoffeeMakerMock);
 var injector = new Injector(module);
 var coffeeMaker = injector.get(CoffeeMaker);
 coffeeMaker.brew();
