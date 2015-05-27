@@ -1,6 +1,6 @@
 {
   "name": "diskajs",
-  "version": "0.1.0",
+  "version": "1.0.1V",
   "description": "A dependency injection framework for Javascript, inspired by Guice by Google.",
   "main": "lib/index.js",
   "scripts": {
