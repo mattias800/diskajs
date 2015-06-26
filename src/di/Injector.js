@@ -83,7 +83,7 @@ function createTemporaryBindingIfNotDefined(binding, type, injector) {
     if (binding === undefined) {
         binding = {
             binding: new ClassBinding(type)
-        }
+        };
     }
     return binding;
 }

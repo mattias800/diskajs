@@ -9,7 +9,7 @@ export class Instantiator {
         Temp.prototype = Type.prototype;
 
         // Create a new instance
-        inst = new Temp;
+        inst = new Temp();
 
         // Call the original Constructor with the temp
         // instance as its context (i.e. its 'this' value)
