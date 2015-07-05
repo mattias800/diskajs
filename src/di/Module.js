@@ -11,6 +11,9 @@ export class Module {
     }
 
     bind(type) {
+        if (type === undefined) {
+            throw new Error('Module bind() get undefined argument. Type is required.');
+        }
         return new BindTo(type, this);
     }
 
