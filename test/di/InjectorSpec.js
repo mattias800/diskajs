@@ -11,7 +11,6 @@ import {InjectedAnyStringProvider} from '../../test-resources/inc/InjectedAnyStr
 import {ProviderWithoutExtends} from '../../test-resources/inc/ProviderWithoutExtends';
 import {Car} from '../../test-resources/car/Car';
 import {CarWithStringInjection} from '../../test-resources/car/CarWithStringInjection';
-import {CarWithInjectArray} from '../../test-resources/car/CarWithInjectArray';
 import {Wheel} from '../../test-resources/car/Wheel';
 import {WheelProvider} from '../../test-resources/car/WheelProvider';
 
@@ -141,15 +140,6 @@ describe('string injection', function() {
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
         assert(injector.get(CarWithStringInjection));
-    });
-});
-
-describe('inject as array', function() {
-    it('should support static inject as array of types', function() {
-        var module = new Module();
-        module.bind(Wheel).toProvider(WheelProvider);
-        var injector = new Injector(module);
-        assert(injector.get(CarWithInjectArray));
     });
 });
 

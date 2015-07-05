@@ -8,16 +8,12 @@ export class ClassBinding {
 
     get(injector) {
         var type = this.TheClass;
-        var depsTypes;
-        if (typeof type.inject === 'function') {
-            depsTypes = type.inject();
-        } else if (type.inject instanceof Array) {
-            depsTypes = type.inject;
-        } else {
+        if (typeof type.inject !== 'function') {
             throw Error(
                 'Cannot inject dependencies into object of type ' + parseTypeNameFromType(type) + '. ' +
                 'Add static method inject() to ' + parseTypeNameFromType(type) + ' that returns a list of types to be injected.');
         }
+        var depsTypes = type.inject();
         var deps = depsTypes.map((depType) => {
             return injector.get(depType);
         });
