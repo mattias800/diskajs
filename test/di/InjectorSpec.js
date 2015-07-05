@@ -138,13 +138,14 @@ describe('Injector', function() {
 describe('string injection', function() {
     it('should inject based on strings', function() {
         var module = new Module();
+        module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
-        //assert(injector.get(CarWithStringInjection));
+        assert(injector.get(CarWithStringInjection));
     });
 });
 
 describe('inject as array', function() {
-    it.only('should support static inject as array of types', function() {
+    it('should support static inject as array of types', function() {
         var module = new Module();
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);

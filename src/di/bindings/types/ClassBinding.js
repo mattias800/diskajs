@@ -26,5 +26,9 @@ export class ClassBinding {
 }
 
 function parseTypeNameFromType(type) {
-    return type.toString().split(' ')[1].split('(')[0];
+    if (typeof type === 'string') {
+        return type;
+    } else {
+        return type.toString().split(' ')[1].split('(')[0];
+    }
 }
