@@ -12,16 +12,21 @@ export class BindTo {
 
     toProvider(provider) {
         if (provider === undefined) {
-            throw Error('Missing toProvider() argument.');
+            throw Error('toProvider() got undefined argument when trying to bind ' +
+                parseTypeNameFromType(this.type) + '.');
         }
         return this.module.addBinding(this.type, new ProviderBinding(provider));
     }
 
     to(TheClass) {
         if (TheClass === undefined) {
-            throw Error('Missing to() argument.');
+            throw Error('to() got undefined argument when trying to bind ' + parseTypeNameFromType(this.type) + '.');
         }
         return this.module.addBinding(this.type, new ClassBinding(TheClass));
     }
 
+}
+
+function parseTypeNameFromType(type) {
+    return type.toString().split(' ')[1].split('(')[0];
 }
