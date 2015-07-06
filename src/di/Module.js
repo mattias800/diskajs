@@ -8,18 +8,26 @@ export class Module {
     constructor() {
         this.bindings = {};
         this.bindingsPerTypeName = {};
+        this.lastSuccessFulBindingTypeName = undefined;
     }
 
     bind(type) {
         if (type === undefined) {
-            throw new Error('Module bind() get undefined argument. Type is required.');
+            if (this.lastSuccessFulBindingTypeName === undefined) {
+                throw new Error('First module bind() get undefined argument. Type is required.');
+            } else {
+                throw new Error('Module bind() get undefined argument. Type is required. ' +
+                    'Last successful binding was for ' + this.lastSuccessFulBindingTypeName + '.');
+            }
         }
         return new BindTo(type, this);
     }
 
     addBinding(type, binding) {
+        var typeName = parseTypeNameFromType(type);
+
         if (this.bindings[type] !== undefined) {
-            throw Error('Type ' + parseTypeNameFromType(type) + ' already has a binding.');
+            throw Error('Type ' + typeName + ' already has a binding.');
         }
         var that = this;
 
@@ -28,10 +36,12 @@ export class Module {
             scope: undefined
         };
 
-        this.bindingsPerTypeName[parseTypeNameFromType(type)] = {
+        this.bindingsPerTypeName[typeName] = {
             binding: binding,
             scope: undefined
         };
+
+        this.lastSuccessFulBindingTypeName = typeName;
 
         return new As({
             setScope: function(scopeType) {
