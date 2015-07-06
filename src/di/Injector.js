@@ -34,8 +34,11 @@ function get(typeOrTypeName, injector) {
         throw Error('Circular injection.');
     }
     injector.injectorStack.push(typeOrTypeName);
+
     var binding = findBindingInModules(typeOrTypeName, injector);
-    binding = createTemporaryBindingIfNotDefined(binding, typeOrTypeName, injector);
+    if (binding === undefined) {
+        binding = createImplicitBinding(typeOrTypeName);
+    }
     binding = updateBindingIfSingleton(binding, injector);
     var instance = binding.binding.get(injector);
     injector.injectorStack.pop();
@@ -79,18 +82,15 @@ function updateBindingIfSingleton(binding, injector) {
     return binding;
 }
 
-function createTemporaryBindingIfNotDefined(binding, type, injector) {
-    if (binding === undefined) {
-        if (typeof type === 'string') {
-            throw new Error('Failed when trying to inject ' + type + '. ' +
-                'Implicit binding is only possible if type was added to module. Use module.bind() to bind it. ' +
-                'If you are using constructor argument injection, you must bind all dependencies explicitly.');
-        }
-        binding = {
-            binding: new ClassBinding(type)
-        };
+function createImplicitBinding(type) {
+    if (typeof type === 'string') {
+        throw new Error('Failed when trying to inject ' + type + '. ' +
+            'Implicit binding is only possible if type was added to module. Use module.bind() to bind it. ' +
+            'If you are using constructor argument injection, you must bind all dependencies explicitly.');
     }
-    return binding;
+    return {
+        binding: new ClassBinding(type)
+    };
 }
 
 function listContainsType(list, type) {

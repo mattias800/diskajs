@@ -45,12 +45,33 @@ describe('Injector', function() {
     });
 
     it('should reuse objects if specified as singleton', function() {
+        var created = 0;
+        class Hejsan {
+            constructor() {
+                created++;
+            }
+        }
         var module = new Module();
-        module.bind(IncString).to(IncString).asSingleton();
+        module.bind(Hejsan).to(Hejsan).asSingleton();
         var injector = new Injector(module);
-        var incString1 = injector.get(IncString);
-        var incString2 = injector.get(IncString);
-        assert(incString1.getString() === incString2.getString());
+        injector.get(Hejsan);
+        injector.get(Hejsan);
+        assert.equal(created, 1);
+    });
+
+    it('should reuse objects if specified as singleton when using string injection', function() {
+        var created = 0;
+        class Hejsan {
+            constructor() {
+                created++;
+            }
+        }
+        var module = new Module();
+        module.bind(Hejsan).to(Hejsan).asSingleton();
+        var injector = new Injector(module);
+        injector.get('Hejsan');
+        injector.get('Hejsan');
+        assert.equal(created, 1);
     });
 
     it('should reuse objects if specified as singleton that is not injected', function() {

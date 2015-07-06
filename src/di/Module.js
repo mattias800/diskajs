@@ -31,15 +31,13 @@ export class Module {
         }
         var that = this;
 
-        this.bindings[type] = {
+        var binding = {
             binding: binding,
             scope: undefined
         };
 
-        this.bindingsPerTypeName[typeName] = {
-            binding: binding,
-            scope: undefined
-        };
+        this.bindings[type] = binding ;
+        this.bindingsPerTypeName[typeName] = binding;
 
         this.lastSuccessFulBindingTypeName = typeName;
 
