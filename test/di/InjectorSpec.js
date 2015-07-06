@@ -165,6 +165,24 @@ describe('injection inferred from constructor arguments', function() {
         var soda = injector.get(Soda);
         assert.equal(soda.sodaIngredient.getName(), 'apple');
     });
+
+    it('should say which parameter failed when unable to inject using constructor arguments', function() {
+        var module = new Module();
+        var injector = new Injector(module);
+        assert.throws(function() {
+                var soda = injector.get(Soda);
+            },
+            /SodaIngredient/)
+    });
+
+    it('should say which constructor failed when unable to inject using constructor arguments', function() {
+        var module = new Module();
+        var injector = new Injector(module);
+        assert.throws(function() {
+                var soda = injector.get(Soda);
+            },
+            /Soda/)
+    });
 });
 
 describe('Child injectors', function() {

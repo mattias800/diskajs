@@ -20,11 +20,13 @@ export class ClassBinding {
         var deps = depsTypes.map((depType) => {
             try {
                 return injector.get(depType);
-            } catch (e) {
+            } catch (e) {
                 if (isInjectingUsingConstructorArguments) {
                     var typeName = parseTypeNameFromType(type);
-                    throw new Error('Trying to inject ' + typeName + ' from parent objects constructor argument, ' +
-                        'but could not find binding. ' +
+                    var depTypeName = parseTypeNameFromType(depType);
+
+                    throw new Error('Trying to inject ' + depTypeName + ' into ' + typeName +
+                        ' using constructor argument, but could not find binding. ' +
                         'Implicit binding is not possible when injecting using constructor arguments, ' +
                         'please att module.bind(T).to(T) for all dependencies needed by ' + typeName + '.');
                 } else {
