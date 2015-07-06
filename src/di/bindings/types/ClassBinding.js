@@ -28,7 +28,8 @@ export class ClassBinding {
                     throw new Error('Trying to inject ' + depTypeName + ' into ' + typeName +
                         ' using constructor argument, but could not find binding. ' +
                         'Implicit binding is not possible when injecting using constructor arguments, ' +
-                        'please att module.bind(T).to(T) for all dependencies needed by ' + typeName + '.');
+                        'please add module.bind(' + depTypeName + ').to(' + depTypeName + ') for all dependencies needed by ' +
+                        typeName + '.');
                 } else {
                     throw e;
                 }

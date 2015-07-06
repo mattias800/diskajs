@@ -183,6 +183,15 @@ describe('injection inferred from constructor arguments', function() {
             },
             /Soda/)
     });
+
+    it('should show how to add binding when unable to inject using constructor arguments', function() {
+        var module = new Module();
+        var injector = new Injector(module);
+        assert.throws(function() {
+                var soda = injector.get(Soda);
+            },
+            /module.bind\(SodaIngredient\).to\(SodaIngredient\)/)
+    });
 });
 
 describe('Child injectors', function() {
