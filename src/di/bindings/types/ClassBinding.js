@@ -18,21 +18,7 @@ export class ClassBinding {
         }
 
         var deps = depsTypes.map((depType) => {
-            try {
-                return injector.get(depType);
-            } catch (e) {
-                if (isInjectingUsingConstructorArguments) {
-                    var typeName = parseTypeNameFromType(type);
-                    var depTypeName = parseTypeNameFromType(depType);
-
-                    throw new Error('Trying to inject ' + depTypeName + ' into ' + typeName +
-                        ' using constructor argument, but could not find binding. ' +
-                        'Implicit binding is not possible when injecting using constructor arguments, ' +
-                        'please add module.bind(' + depTypeName + ').to(' + depTypeName + ').');
-                } else {
-                    throw e;
-                }
-            }
+            return injector.get(depType);
         });
         return Instantiator.createInstance(this.TheClass, deps);
     }

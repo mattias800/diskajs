@@ -82,8 +82,9 @@ function updateBindingIfSingleton(binding, injector) {
 function createTemporaryBindingIfNotDefined(binding, type, injector) {
     if (binding === undefined) {
         if (typeof type === 'string') {
-            throw new Error('Trying to bind implicitly, but got type name instead of type for ' + type + '. ' +
-                'Implicit binding is only possible if type was added to module. Use module.bind() to bind it.');
+            throw new Error('Failed when trying to inject ' + type + '. ' +
+                'Implicit binding is only possible if type was added to module. Use module.bind() to bind it. ' +
+                'If you are using constructor argument injection, you must bind all dependencies explicitly.');
         }
         binding = {
             binding: new ClassBinding(type)
