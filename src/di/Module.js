@@ -19,7 +19,7 @@ export class Module {
 
     addBinding(type, binding) {
         if (this.bindings[type] !== undefined) {
-            throw Error('Type "' + type + '" already has a binding.');
+            throw Error('Type ' + parseTypeNameFromType(type) + ' already has a binding.');
         }
         var that = this;
 

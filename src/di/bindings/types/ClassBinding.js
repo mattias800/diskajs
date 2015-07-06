@@ -8,14 +8,29 @@ export class ClassBinding {
 
     get(injector) {
         var type = this.TheClass;
-        if (typeof type.inject !== 'function') {
-            throw Error(
-                'Cannot inject dependencies into object of type ' + parseTypeNameFromType(type) + '. ' +
-                'Add static method inject() to ' + parseTypeNameFromType(type) + ' that returns a list of types to be injected.');
+        var depsTypes;
+        var isInjectingUsingConstructorArguments = false;
+        if (typeof type.inject === 'function') {
+            depsTypes = type.inject();
+        } else {
+            isInjectingUsingConstructorArguments = true;
+            depsTypes = parseArgumentsFromTypeConstructor(type);
         }
-        var depsTypes = type.inject();
+
         var deps = depsTypes.map((depType) => {
-            return injector.get(depType);
+            try {
+                return injector.get(depType);
+            } catch (e) {
+                if (isInjectingUsingConstructorArguments) {
+                    var typeName = parseTypeNameFromType(type);
+                    throw new Error('Trying to inject ' + typeName + ' from parent objects constructor argument, ' +
+                        'but could not find binding. ' +
+                        'Implicit binding is not possible when injecting using constructor arguments, ' +
+                        'please att module.bind(T).to(T) for all dependencies needed by ' + typeName + '.');
+                } else {
+                    throw e;
+                }
+            }
         });
         return Instantiator.createInstance(this.TheClass, deps);
     }
@@ -27,4 +42,18 @@ function parseTypeNameFromType(type) {
     } else {
         return type.toString().split(' ')[1].split('(')[0];
     }
+}
+
+function parseArgumentsFromTypeConstructor(type) {
+    var r = type.toString().split('(')[1].split(')')[0].split(',').map(function(argument) {
+        return capitalizeFirstLetter(argument.trim());
+    }).filter(function(argument) {
+        return argument ? true : false;
+    });
+    console.log(r);
+    return r;
+}
+
+function capitalizeFirstLetter(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
 }

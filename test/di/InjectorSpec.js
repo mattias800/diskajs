@@ -13,6 +13,10 @@ import {Car} from '../../test-resources/car/Car';
 import {CarWithStringInjection} from '../../test-resources/car/CarWithStringInjection';
 import {Wheel} from '../../test-resources/car/Wheel';
 import {WheelProvider} from '../../test-resources/car/WheelProvider';
+import {Soda} from '../../test-resources/Soda/Soda';
+import {SodaIngredient} from '../../test-resources/Soda/SodaIngredient';
+import {Apple} from '../../test-resources/Soda/Apple';
+import {Orange} from '../../test-resources/Soda/Orange';
 
 var assert = require('assert');
 
@@ -140,6 +144,26 @@ describe('string injection', function() {
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
         assert(injector.get(CarWithStringInjection));
+    });
+});
+
+
+describe('get() with type as string', function() {
+    it('should get object of type where type is a string', function() {
+        var module = new Module();
+        module.bind(Wheel).toProvider(WheelProvider);
+        var injector = new Injector(module);
+        assert(injector.get('Wheel'));
+    });
+});
+
+describe('injection inferred from constructor arguments', function() {
+    it('should inject using constructor parameters when no static inject exists.', function() {
+        var module = new Module();
+        module.bind(SodaIngredient).to(Apple);
+        var injector = new Injector(module);
+        var soda = injector.get(Soda);
+        assert.equal(soda.sodaIngredient.getName(), 'apple');
     });
 });
 
