@@ -45,13 +45,11 @@ function parseTypeNameFromType(type) {
 }
 
 function parseArgumentsFromTypeConstructor(type) {
-    var r = type.toString().split('(')[1].split(')')[0].split(',').map(function(argument) {
+    return type.toString().split('(')[1].split(')')[0].split(',').map(function(argument) {
         return capitalizeFirstLetter(argument.trim());
     }).filter(function(argument) {
         return argument ? true : false;
     });
-    console.log(r);
-    return r;
 }
 
 function capitalizeFirstLetter(s) {
