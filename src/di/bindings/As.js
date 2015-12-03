@@ -1,12 +1,16 @@
-import {Singleton} from './scopes/Singleton';
+/* @flow */
 
-export class As {
+import Singleton from './scopes/Singleton';
 
-    constructor(args) {
+export default class As {
+
+    args:any;
+
+    constructor(args:any) {
         this.args = args;
     }
 
-    asSingleton() {
+    asSingleton():void {
         this.args.setScope(Singleton);
     }
 

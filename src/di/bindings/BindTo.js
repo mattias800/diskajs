@@ -1,9 +1,9 @@
-import {ClassBinding} from './types/ClassBinding';
-import {InstanceBinding} from './types/InstanceBinding';
-import {ProviderBinding} from './types/ProviderBinding';
-import {Provider} from './../Provider';
+import ClassBinding from './types/ClassBinding';
+import InstanceBinding from './types/InstanceBinding';
+import ProviderBinding from './types/ProviderBinding';
+import Provider from './../Provider';
 
-export class BindTo {
+export default class BindTo {
 
     constructor(type, module) {
         this.type = type;
@@ -16,6 +16,14 @@ export class BindTo {
                 parseTypeNameFromType(this.type) + '.');
         }
         return this.module.addBinding(this.type, new ProviderBinding(provider));
+    }
+
+    toInstance(instance) {
+        if (instance === undefined) {
+            throw Error('toInstance() got undefined argument when trying to bind ' +
+                parseTypeNameFromType(this.type) + '.');
+        }
+        return this.module.addBinding(this.type, new InstanceBinding(instance));
     }
 
     to(TheClass) {

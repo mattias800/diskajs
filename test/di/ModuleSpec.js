@@ -1,4 +1,4 @@
-import {Module} from '../../src/di/Module';
+import Module from '../../src/di/Module';
 
 var assert = require('assert');
 

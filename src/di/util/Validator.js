@@ -1,6 +1,7 @@
-export class Validator {
+/* @flow */
+export default class Validator {
 
-    validateListOnlyContainsInstancesOf(list, type, message) {
+    validateListOnlyContainsInstancesOf(list:Array<any>, type:any, message:string):boolean {
         if (list === undefined) {
             throw Error(message);
         }

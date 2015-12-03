@@ -1,3 +1,5 @@
-export class Singleton {
-    
+/* @flow */
+
+export default class Singleton {
+
 }

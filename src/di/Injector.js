@@ -1,23 +1,27 @@
-import {Module} from './Module';
-import {Instantiator} from './util/Instantiator';
-import {Validator} from './util/Validator';
-import {ClassBinding} from './bindings/types/ClassBinding';
-import {InstanceBinding} from './bindings/types/InstanceBinding';
-import {Singleton} from './bindings/scopes/Singleton';
+/* @flow */
+import Module from './Module';
+import Instantiator from './util/Instantiator';
+import Validator from './util/Validator';
+import ClassBinding from './bindings/types/ClassBinding';
+import InstanceBinding from './bindings/types/InstanceBinding';
+import Singleton from './bindings/scopes/Singleton';
 
-export class Injector {
+export default class Injector {
 
-    constructor(modules) {
+    modules:Array<Module>;
+    injectorStack:Array<any>;
+
+    constructor(modules:Array<Module>) {
         this.modules = getModulesFromArguments(modules, arguments);
         this.injectorStack = [];
         validateModules(this.modules);
     }
 
-    get(type) {
+    get(type:any) {
         return get(type, this);
     }
 
-    getChildInjector(childModules) {
+    getChildInjector(childModules:Array<Module>):Injector {
         var modules = getModulesFromArguments(childModules, arguments);
         for (var i = 0; i < this.modules.length; i++) {
             modules.push(this.modules[i]);
@@ -26,7 +30,7 @@ export class Injector {
     }
 }
 
-function get(typeOrTypeName, injector) {
+function get(typeOrTypeName:any, injector:Injector) {
     if (typeOrTypeName === undefined) {
         throw Error('Injector.get() requires one argument.');
     }
@@ -45,14 +49,14 @@ function get(typeOrTypeName, injector) {
     return instance;
 }
 
-function validateModules(modules) {
+function validateModules(modules:Array<Module>) {
     for (var i = 0; i < modules.length; i++) {
         if (!(modules[i] instanceof Module)) {
             throw Error('Injector() can only take modules as arguments.');
         }
     }
 }
-function getModulesFromArguments(modules, args) {
+function getModulesFromArguments(modules:Array<Module>, args) {
     if (modules instanceof Array) {
         return modules;
     } else {
@@ -64,7 +68,7 @@ function getModulesFromArguments(modules, args) {
     }
 }
 
-function findBindingInModules(type, injector) {
+function findBindingInModules(type, injector:Injector) {
     for (var i = 0; i < injector.modules.length; i++) {
         var module = injector.modules[i];
         var binding = module.getBindingForType(type);
@@ -75,25 +79,25 @@ function findBindingInModules(type, injector) {
     return undefined;
 }
 
-function updateBindingIfSingleton(binding, injector) {
+function updateBindingIfSingleton(binding, injector:Injector) {
     if (binding.scope === Singleton && !(binding.binding instanceof InstanceBinding)) {
         binding.binding = new InstanceBinding(binding.binding.get(injector));
     }
     return binding;
 }
 
-function createImplicitBinding(type) {
+function createImplicitBinding(type:any) {
     if (typeof type === 'string') {
         throw new Error('Failed when trying to inject ' + type + '. ' +
             'Implicit binding is only possible if type was added to module. Use module.bind() to bind it. ' +
             'If you are using constructor argument injection, you must bind all dependencies explicitly.');
     }
     return {
-        binding: new ClassBinding(type)
+        binding : new ClassBinding(type)
     };
 }
 
-function listContainsType(list, type) {
+function listContainsType(list:Array<any>, type:any):boolean {
     for (var i = 0; i < list.length; i++) {
         if (list[i] === type) {
             return true;

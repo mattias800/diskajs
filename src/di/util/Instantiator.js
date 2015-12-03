@@ -1,4 +1,6 @@
-export class Instantiator {
+/* @flow */
+
+export default class Instantiator {
 
     static createInstance(Type, args) {
         var Temp = function() {

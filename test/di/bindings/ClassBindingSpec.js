@@ -1,5 +1,5 @@
-import {ClassBinding} from "../../../src/di/bindings/types/ClassBinding";
-import {Module} from "../../../src/di/Module";
+import ClassBinding from "../../../src/di/bindings/types/ClassBinding";
+import Module from "../../../src/di/Module";
 
 var assert = require('assert');
 

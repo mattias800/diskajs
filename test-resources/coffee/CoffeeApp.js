@@ -1,5 +1,5 @@
 import {Injector} from '../../src/index';
-import {Module} from '../../src/index';
+import Module from '../../src/index';
 
 import {Grinder} from'./Grinder';
 import {CoffeeMaker} from './CoffeeMaker';

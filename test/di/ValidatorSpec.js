@@ -1,5 +1,5 @@
-import {Validator} from '../../src/di/util/Validator';
-import {Module} from '../../src/di/Module';
+import Validator from '../../src/di/util/Validator';
+import Module from '../../src/di/Module';
 
 var assert = require("assert");
 

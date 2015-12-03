@@ -1,19 +1,24 @@
-import {BindTo} from './bindings/BindTo';
-import {As} from './bindings/As';
-import {InstanceBinding} from './bindings/types/InstanceBinding';
-import {Singleton} from './bindings/scopes/Singleton';
+/* @flow */
+import BindTo from './bindings/BindTo';
+import As from './bindings/As';
+import InstanceBinding from './bindings/types/InstanceBinding';
+import Singleton from './bindings/scopes/Singleton';
+import Binding from './bindings/types/Binding';
+export default class Module {
 
-export class Module {
+    bindings:Object;
+    bindingsPerTypeName:Object;
+    lastSuccessFulBindingTypeName:string;
 
     constructor() {
         this.bindings = {};
         this.bindingsPerTypeName = {};
-        this.lastSuccessFulBindingTypeName = undefined;
+        this.lastSuccessFulBindingTypeName = '';
     }
 
-    bind(type) {
+    bind(type:Object) {
         if (type === undefined) {
-            if (this.lastSuccessFulBindingTypeName === undefined) {
+            if (this.lastSuccessFulBindingTypeName === '') {
                 throw new Error('First module bind() get undefined argument. Type is required.');
             } else {
                 throw new Error('Module bind() get undefined argument. Type is required. ' +
@@ -23,7 +28,7 @@ export class Module {
         return new BindTo(type, this);
     }
 
-    addBinding(type, binding) {
+    addBinding(type:Object, binding:Binding):As {
         var typeName = parseTypeNameFromType(type);
 
         if (this.bindings[type] !== undefined) {
@@ -32,23 +37,23 @@ export class Module {
         var that = this;
 
         var binding = {
-            binding: binding,
-            scope: undefined
+            binding : binding,
+            scope : undefined
         };
 
-        this.bindings[type] = binding ;
+        this.bindings[type] = binding;
         this.bindingsPerTypeName[typeName] = binding;
 
         this.lastSuccessFulBindingTypeName = typeName;
 
         return new As({
-            setScope: function(scopeType) {
+            setScope : (scopeType) => {
                 that.bindings[type].scope = scopeType;
             }
         });
     }
 
-    getBindingForType(type) {
+    getBindingForType(type:Object):Binding {
         if (typeof type === 'string') {
             return this.bindingsPerTypeName[type];
         } else {

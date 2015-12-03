@@ -1,12 +1,19 @@
-import {Provider} from '../../Provider';
+/* @flow */
 
-export class ProviderBinding {
+import Provider from '../../Provider';
+import Binding from './Binding';
+import Injector from "../../Injector"
 
-    constructor(ProviderClass) {
+export default class ProviderBinding extends Binding {
+
+    ProviderClass:any;
+
+    constructor(ProviderClass:any) {
+        super();
         this.ProviderClass = ProviderClass;
     }
 
-    get(injector) {
+    get(injector:Injector):any {
         var provider;
         if (typeof this.ProviderClass.inject !== 'function') {
             provider = new this.ProviderClass();
