@@ -1,6 +1,0 @@
-class Hej {
-
-    constructor() {
-
-    }
-}

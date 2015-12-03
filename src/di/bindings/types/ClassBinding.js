@@ -19,6 +19,8 @@ export default class ClassBinding extends Binding {
         var isInjectingUsingConstructorArguments = false;
         if (typeof type.inject === 'function') {
             depsTypes = type.inject();
+        } else if (type.__diska && type.__diska.inject) {
+            depsTypes = type.__diska.inject;
         } else {
             isInjectingUsingConstructorArguments = true;
             depsTypes = parseArgumentsFromTypeConstructor(type);
