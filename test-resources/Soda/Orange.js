@@ -1,5 +1,5 @@
-export class Orange {
+export default class Orange {
     getName() {
-        return 'orange';
+        return "orange";
     }
 }

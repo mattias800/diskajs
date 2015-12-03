@@ -1,8 +1,8 @@
 import {Injector} from '../../src/index';
-import Module from '../../src/index';
+import {Module} from '../../src/index';
 
-import {Grinder} from'./Grinder';
-import {CoffeeMaker} from './CoffeeMaker';
+import Grinder from'./Grinder';
+import CoffeeMaker from './CoffeeMaker';
 
 export class CoffeeApp {
     constructor() {

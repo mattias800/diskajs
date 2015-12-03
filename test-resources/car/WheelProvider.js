@@ -1,7 +1,7 @@
 import {Provider} from '../../src/index';
-import {Wheel} from './Wheel';
+import Wheel from './Wheel';
 
-export class WheelProvider extends Provider {
+export default class WheelProvider extends Provider {
 
     get() {
         return new Wheel({ type: 'iron' });

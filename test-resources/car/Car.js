@@ -1,6 +1,6 @@
-import {Wheel} from './Wheel';
+import Wheel from './Wheel';
 
-export class Car {
+export default class Car {
 
     static inject() {
         return [Wheel]

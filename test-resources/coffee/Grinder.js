@@ -1,4 +1,4 @@
-export class Grinder {
+export default class Grinder {
 
     static inject() {
         return [];

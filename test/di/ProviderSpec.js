@@ -1,4 +1,4 @@
-import {Provider} from '../../src/di/Provider';
+import Provider from '../../src/di/Provider';
 
 var assert = require('assert');
 

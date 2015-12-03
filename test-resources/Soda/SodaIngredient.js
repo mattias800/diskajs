@@ -1,4 +1,4 @@
-export class SodaIngredient {
+export default class SodaIngredient {
 
     getName() {
         return 'soda ingredient';

@@ -2,8 +2,8 @@ import Module from '../../src/di/Module';
 
 var assert = require('assert');
 
-import {Wheel} from '../../test-resources/car/Wheel';
-import {WheelProvider} from '../../test-resources/car/WheelProvider';
+import Wheel from '../../test-resources/car/Wheel';
+import WheelProvider from '../../test-resources/car/WheelProvider';
 
 describe('Module', function() {
 

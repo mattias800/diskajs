@@ -1,4 +1,4 @@
-export class CarWithStringInjection {
+export default class CarWithStringInjection {
 
     static inject() {
         return ['Wheel']

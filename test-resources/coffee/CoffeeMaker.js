@@ -1,6 +1,6 @@
-import {Grinder} from './Grinder';
+import Grinder from './Grinder';
 
-export class CoffeeMaker {
+export default class CoffeeMaker {
 
     static inject() {
         return [Grinder];
