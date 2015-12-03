@@ -1,7 +1,7 @@
 import {Provider} from '../../src/index';
-import {AnyString} from './AnyString';
+import AnyString from './AnyString';
 
-export class InjectedAnyStringProvider extends Provider {
+export default class InjectedAnyStringProvider extends Provider {
 
     static inject() {
         return [AnyString];

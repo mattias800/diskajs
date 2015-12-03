@@ -1,7 +1,7 @@
 import {Provider} from '../../src/index';
-import {IncString} from './IncString';
+import IncString from './IncString';
 
-export class CircularIncStringProvider extends Provider {
+export default class CircularIncStringProvider extends Provider {
 
     static inject() {
         return [IncString];

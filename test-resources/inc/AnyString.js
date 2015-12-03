@@ -1,4 +1,4 @@
-export class AnyString {
+export default class AnyString {
 
     static inject() {
         return [];

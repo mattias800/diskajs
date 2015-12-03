@@ -1,4 +1,4 @@
-import {IncString} from '../../../test-resources/inc/IncString';
+import IncString from '../../../test-resources/inc/IncString';
 
 var assert = require('assert');
 

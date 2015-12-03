@@ -1,6 +1,6 @@
-import {IncString} from './IncString';
+import IncString from './IncString';
 
-export class ProviderWithoutExtends {
+export default class ProviderWithoutExtends {
 
     static inject() {
         return [IncString];

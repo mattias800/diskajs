@@ -3,12 +3,12 @@ import {Injector, Module} from '../../src/index';
 import Grinder from'./../../test-resources/coffee/Grinder';
 import CoffeeMaker from './../../test-resources/coffee/CoffeeMaker';
 
-import {IncString} from '../../test-resources/inc/IncString';
-import {AnyString} from '../../test-resources/inc/AnyString';
-import {IncStringProvider} from '../../test-resources/inc/IncStringProvider';
-import {CircularIncStringProvider} from '../../test-resources/inc/CircularIncStringProvider';
-import {InjectedAnyStringProvider} from '../../test-resources/inc/InjectedAnyStringProvider';
-import {ProviderWithoutExtends} from '../../test-resources/inc/ProviderWithoutExtends';
+import IncString from '../../test-resources/inc/IncString';
+import AnyString from '../../test-resources/inc/AnyString';
+import IncStringProvider from '../../test-resources/inc/IncStringProvider';
+import CircularIncStringProvider from '../../test-resources/inc/CircularIncStringProvider';
+import InjectedAnyStringProvider from '../../test-resources/inc/InjectedAnyStringProvider';
+import ProviderWithoutExtends from '../../test-resources/inc/ProviderWithoutExtends';
 import Car from '../../test-resources/car/Car';
 import CarWithStringInjection from '../../test-resources/car/CarWithStringInjection';
 import Wheel from '../../test-resources/car/Wheel';

@@ -1,7 +1,7 @@
 import {Provider} from '../../src/index';
-import {IncString} from './IncString';
+import IncString from './IncString';
 
-export class IncStringProvider extends Provider {
+export default class IncStringProvider extends Provider {
 
     get() {
         return new IncString();

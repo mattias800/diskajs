@@ -1,6 +1,6 @@
 var number = 0;
 
-export class IncString {
+export default class IncString {
 
     static inject() {
         return [];

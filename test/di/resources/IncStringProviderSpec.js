@@ -1,5 +1,5 @@
-import {IncStringProvider} from '../../../test-resources/inc/IncStringProvider';
-import {IncString} from '../../../test-resources/inc/IncString';
+import IncStringProvider from '../../../test-resources/inc/IncStringProvider';
+import IncString from '../../../test-resources/inc/IncString';
 
 var assert = require('assert');
 
