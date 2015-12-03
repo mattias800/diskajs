@@ -4,16 +4,18 @@ import Instantiator from './util/Instantiator';
 import Validator from './util/Validator';
 import ClassBinding from './bindings/types/ClassBinding';
 import InstanceBinding from './bindings/types/InstanceBinding';
-import Singleton from './bindings/scopes/Singleton';
+import SingletonScope from './bindings/scopes/SingletonScope';
 
 export default class Injector {
 
     modules:Array<Module>;
     injectorStack:Array<any>;
+    implicitBindings:Object;
 
     constructor(modules:Array<Module>) {
         this.modules = getModulesFromArguments(modules, arguments);
         this.injectorStack = [];
+        this.implicitBindings = {};
         validateModules(this.modules);
     }
 
@@ -41,7 +43,12 @@ function get(typeOrTypeName:any, injector:Injector) {
 
     var binding = findBindingInModules(typeOrTypeName, injector);
     if (binding === undefined) {
-        binding = createImplicitBinding(typeOrTypeName);
+        if (injector.implicitBindings[typeOrTypeName]) {
+            binding = injector.implicitBindings[typeOrTypeName];
+        } else {
+            binding = createImplicitBinding(typeOrTypeName);
+            injector.implicitBindings[typeOrTypeName] = binding;
+        }
     }
     binding = updateBindingIfSingleton(binding, injector);
     var instance = binding.binding.get(injector);
@@ -80,10 +87,21 @@ function findBindingInModules(type, injector:Injector) {
 }
 
 function updateBindingIfSingleton(binding, injector:Injector) {
-    if (binding.scope === Singleton && !(binding.binding instanceof InstanceBinding)) {
+    if ((binding.scope === SingletonScope || getDecoratedBindingFromBinding(binding) === SingletonScope) && !(binding.binding instanceof InstanceBinding)) {
         binding.binding = new InstanceBinding(binding.binding.get(injector));
     }
     return binding;
+}
+
+function getDecoratedBindingFromBinding(binding) {
+    if (
+        binding.binding.TheClass &&
+        binding.binding.TheClass.__diska &&
+        binding.binding.TheClass.__diska.scope) {
+        return binding.binding.TheClass.__diska.scope;
+    } else {
+        return undefined;
+    }
 }
 
 function createImplicitBinding(type:Object) {

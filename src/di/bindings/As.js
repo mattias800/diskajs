@@ -1,6 +1,6 @@
 /* @flow */
 
-import Singleton from './scopes/Singleton';
+import SingletonScope from './scopes/SingletonScope';
 
 export default class As {
 
@@ -11,7 +11,7 @@ export default class As {
     }
 
     asSingleton():void {
-        this.args.setScope(Singleton);
+        this.args.setScope(SingletonScope);
     }
 
 

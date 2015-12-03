@@ -2,8 +2,9 @@
 import BindTo from './bindings/BindTo';
 import As from './bindings/As';
 import InstanceBinding from './bindings/types/InstanceBinding';
-import Singleton from './bindings/scopes/Singleton';
+import SingletonScope from './bindings/scopes/SingletonScope';
 import Binding from './bindings/types/Binding';
+
 export default class Module {
 
     bindings:Object;

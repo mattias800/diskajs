@@ -9,7 +9,7 @@ import {
 
 var assert = require('assert');
 
-describe.only("Inject", () => {
+describe("Inject decorator", () => {
     it("should inject types specified by Inject decorator", () => {
         @Inject(Vehicle)
         class VehicleContainer {
@@ -30,7 +30,7 @@ describe.only("Inject", () => {
     });
 });
 
-describe.only("Inject", () => {
+describe("Inject", () => {
     it("should inject types specified by Inject decorator even when constructor argument name and type is another type",
         () => {
             @Inject(Bike)

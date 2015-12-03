@@ -1,1 +1,0 @@
-{"version":3,"sources":["src/di/bindings/scopes/Singleton.js"],"names":[],"mappings":";;;;;;;;IAAa,SAAS,YAAT,SAAS;0BAAT,SAAS;;;QAAT,SAAS,GAAT,SAAS","file":"src/di/bindings/scopes/Singleton.js","sourcesContent":["export class Singleton {\n    \n}"]}
