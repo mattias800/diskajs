@@ -39,21 +39,6 @@ will be instantly familiar with diska.
 
 ## Tutorial
 
-#### About the examples
-
-Most of these examples are copied from the tests.
-Because of this, some module reference look different from how they would in application code.
-
-```js
-import {Provider} from '../../src/index';
-```
-
-This import statement for example, would be replaced with require() (depending on your environment).
-
-```js
-var Provider = require('diska');
-```
-
 ### Injecting class instances
 
 In diska, you use modules, providers and injectors.
@@ -221,7 +206,7 @@ You can supply the module with a provider for Wheel. The provider must extend
 the Provider class in diska.
 
 ```js
-import {Provider} from '../../src/index';
+import {Provider} from 'diska';
 import {Wheel} from './Wheel';
 
 export class WheelProvider extends Provider {
@@ -240,7 +225,7 @@ instantiate the `WheelProvider` and run `get()` to get the Wheel instance.
 If you want, you can add an `inject()` to your provider and these dependencies will be injected.
 
 ```js
-import {Provider} from '../../src/index';
+import {Provider} from 'diska';
 import {AnyString} from './AnyString';
 
 export class InjectedAnyStringProvider extends Provider {

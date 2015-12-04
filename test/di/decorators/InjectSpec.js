@@ -4,6 +4,7 @@ import {
     Inject,
     Injector,
     Singleton,
+    Provider,
     Module
 } from "../../../src/index";
 
@@ -28,9 +29,37 @@ describe("Inject decorator", () => {
         assert.equal(vehicleContainer.vehicle.getName(), "vehicle");
 
     });
-});
 
-describe("Inject", () => {
+    it("should work with Providers", () => {
+        class VehicleFactory {
+            createVehicle():Vehicle {
+                return new Vehicle();
+            }
+        }
+
+        @Inject(VehicleFactory)
+        class VehicleProvider extends Provider {
+
+            vehicleFactory:VehicleFactory;
+
+            constructor(vehicleFactory:VehicleFactory) {
+                this.vehicleFactory = vehicleFactory;
+            }
+
+            get():Vehicle {
+                return this.vehicleFactory.createVehicle();
+            }
+
+        }
+
+        var module = new Module();
+        module.bind(Vehicle).toProvider(VehicleProvider);
+        var injector = new Injector(module);
+        var vehicleContainer = injector.get(VehicleContainer);
+        assert.equal(vehicleContainer.vehicle.getName(), "vehicle");
+
+    });
+
     it("should inject types specified by Inject decorator even when constructor argument name and type is another type",
         () => {
             @Inject(Bike)

@@ -107,8 +107,8 @@ function getDecoratedBindingFromBinding(binding) {
 function createImplicitBinding(type:Object) {
     if (typeof type === 'string') {
         throw new Error('Failed when trying to inject ' + type + '. ' +
-            'Implicit binding is only possible if type was added to module. Use module.bind() to bind it. ' +
-            'If you are using constructor argument injection, you must bind all dependencies explicitly.');
+            'You must either have an @Inject() decorator on the class, or use module.bind() to ' +
+            'bind classes with names that match the constructor arguments.');
     }
     return {
         binding : new ClassBinding(type)
