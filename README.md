@@ -2,6 +2,12 @@
 
 A lightweight DI framework in Javascript, inspired by Guice by Google.
 
+## Information on Babel 6
+
+Diska was developed with Babel, and since Babel 6 currently doesn't support decorators, 
+which is the next feature for diska, the master branch isn't working with Babel 6 yet.
+Please use the latest version available in NPM. Diska will be updated as soon as Babel 6 adds support for decorators.
+
 ## Installation
 
 ```
