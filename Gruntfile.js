@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         babel : {
             options : {
                 sourceMap : true,
-                "plugins" : ["typecheck"]
+                babelrc: ".babelrc"
             },
             dist : {
                 files : [{
