@@ -1,11 +1,4 @@
 {
-  "presets": ["es2015", "stage-0"],
-  "plugins": [
-    "syntax-decorators",
-    "transform-decorators",
-    "syntax-object-rest-spread",
-    "transform-object-rest-spread",
-    "syntax-flow",
-    "transform-flow-strip-types"
-  ]
+	"stage" : 0,
+  "plugins": ["typecheck"]
 }

@@ -12,7 +12,7 @@ export default class Injector {
     injectorStack:Array<any>;
     implicitBindings:Object;
 
-    constructor(modules:Array<Module>) {
+    constructor(modules) {
         this.modules = getModulesFromArguments(modules, arguments);
         this.injectorStack = [];
         this.implicitBindings = {};
@@ -23,7 +23,7 @@ export default class Injector {
         return get(type, this);
     }
 
-    getChildInjector(childModules:Array<Module>):Injector {
+    getChildInjector(childModules):Injector {
         var modules = getModulesFromArguments(childModules, arguments);
         for (var i = 0; i < this.modules.length; i++) {
             modules.push(this.modules[i]);
@@ -63,7 +63,7 @@ function validateModules(modules:Array<Module>) {
         }
     }
 }
-function getModulesFromArguments(modules:Array<Module>, args) {
+function getModulesFromArguments(modules, args) {
     if (modules instanceof Array) {
         return modules;
     } else {
@@ -104,7 +104,7 @@ function getDecoratedBindingFromBinding(binding) {
     }
 }
 
-function createImplicitBinding(type:Object) {
+function createImplicitBinding(type) {
     if (typeof type === 'string') {
         throw new Error('Failed when trying to inject ' + type + '. ' +
             'You must either have an @Inject() decorator on the class, or use module.bind() to ' +

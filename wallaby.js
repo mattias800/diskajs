@@ -1,4 +1,4 @@
-var babel = require('babel-core');
+var babel = require('babel');
 
 var babelConfig = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '.babelrc')));
 babelConfig.babel = babel;

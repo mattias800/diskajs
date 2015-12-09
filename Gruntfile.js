@@ -1,28 +1,29 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
-        clean: {
-            build: {
-                src: ["lib/"]
+        clean : {
+            build : {
+                src : ["lib/"]
             }
         },
-        mochacli: {
-            options: {
-                harmony: true,
-                compilers: ['babel']
+        mochacli : {
+            options : {
+                harmony : true,
+                compilers : ['babel']
             },
-            all: ['test/**/*.js']
+            all : ['test/**/*.js']
         },
-        babel: {
-            options: {
-                sourceMap: true
+        babel : {
+            options : {
+                sourceMap : true,
+                "plugins" : ["typecheck"]
             },
-            dist: {
-                files: [{
-                    cwd: './src/',
-                    expand: true,
-                    src: ['**/*.js'],
-                    dest: './lib/'
+            dist : {
+                files : [{
+                    cwd : './src/',
+                    expand : true,
+                    src : ['**/*.js'],
+                    dest : './lib/'
                 }]
             }
         }

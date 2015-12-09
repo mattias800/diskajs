@@ -43,6 +43,7 @@ describe("Inject decorator", () => {
             vehicleFactory:VehicleFactory;
 
             constructor(vehicleFactory:VehicleFactory) {
+                super();
                 this.vehicleFactory = vehicleFactory;
             }
 
@@ -55,8 +56,8 @@ describe("Inject decorator", () => {
         var module = new Module();
         module.bind(Vehicle).toProvider(VehicleProvider);
         var injector = new Injector(module);
-        var vehicleContainer = injector.get(VehicleContainer);
-        assert.equal(vehicleContainer.vehicle.getName(), "vehicle");
+        var vehicle = injector.get(Vehicle);
+        assert.equal(vehicle.getName(), "vehicle");
 
     });
 

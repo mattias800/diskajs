@@ -17,7 +17,7 @@ export default class Module {
         this.lastSuccessFulBindingTypeName = '';
     }
 
-    bind(type:Object) {
+    bind(type) {
         if (type === undefined) {
             if (this.lastSuccessFulBindingTypeName === '') {
                 throw new Error('First module bind() get undefined argument. Type is required.');
@@ -29,7 +29,7 @@ export default class Module {
         return new BindTo(type, this);
     }
 
-    addBinding(type:Object, binding:Binding):As {
+    addBinding(type, binding:Binding):As {
         var typeName = parseTypeNameFromType(type);
 
         if (this.bindings[type] !== undefined) {
@@ -54,7 +54,7 @@ export default class Module {
         });
     }
 
-    getBindingForType(type:Object):Binding {
+    getBindingForType(type) {
         if (typeof type === 'string') {
             return this.bindingsPerTypeName[type];
         } else {

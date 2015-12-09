@@ -10,7 +10,7 @@ export default class As {
         this.args = args;
     }
 
-    asSingleton():void {
+    asSingleton() {
         this.args.setScope(SingletonScope);
     }
 
