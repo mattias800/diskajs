@@ -16,19 +16,21 @@ export default class ClassBinding extends Binding {
     get(injector:Injector) {
         var type = this.TheClass;
         var depsTypes;
-        var isInjectingUsingConstructorArguments = false;
         if (typeof type.inject === 'function') {
             depsTypes = type.inject();
         } else if (type.__diska && type.__diska.inject) {
             depsTypes = type.__diska.inject;
         } else {
-            isInjectingUsingConstructorArguments = true;
-            depsTypes = parseArgumentsFromTypeConstructor(type);
+            throw "Unable to create instance of " + parseTypeNameFromType(this.TheClass) + ". You must add static inject() or @Inject.";
         }
 
-        var deps = depsTypes.map((depType) => {
-            return injector.get(depType);
-        });
+        try {
+            var deps = depsTypes.map((depType) => {
+                return injector.get(depType);
+            });
+        } catch (e) {
+            throw "Unable to instantiate objects required by " + parseTypeNameFromType(this.TheClass) + ": " + e;
+        }
         return Instantiator.createInstance(this.TheClass, deps);
     }
 }

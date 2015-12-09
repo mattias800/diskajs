@@ -1,10 +1,14 @@
 function Inject() {
     var typesToInject = convertArgumentsToArray(arguments);
     return (target) => {
-        target.__diska = {
-            ...target.__diska,
-            inject : typesToInject
-        };
+        if (target) {
+            target.__diska = {
+                ...target.__diska,
+                inject : typesToInject
+            };
+        } else {
+            return undefined;
+        }
     };
 }
 

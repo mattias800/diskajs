@@ -1,5 +1,8 @@
+import {Inject} from '../../src/index';
+
 var number = 0;
 
+@Inject()
 export default class IncString {
 
     static inject() {

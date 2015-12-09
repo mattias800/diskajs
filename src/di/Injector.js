@@ -106,8 +106,8 @@ function getDecoratedBindingFromBinding(binding) {
 
 function createImplicitBinding(type) {
     if (typeof type === 'string') {
-        throw new Error('Failed when trying to inject ' + type + '. ' +
-            'You must either have an @Inject() decorator on the class, or use module.bind() to ' +
+        throw new Error('Failed when trying to inject argument ' + type + '. ' +
+            'You must either have an @Inject() decorator on owner class, or use module.bind() to ' +
             'bind classes with names that match the constructor arguments.');
     }
     return {

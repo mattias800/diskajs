@@ -1,4 +1,4 @@
-import {Injector, Module} from '../../src/index';
+import {Inject, Injector, Module} from '../../src/index';
 
 import Grinder from'./../../test-resources/coffee/Grinder';
 import CoffeeMaker from './../../test-resources/coffee/CoffeeMaker';
@@ -46,11 +46,14 @@ describe('Injector', function() {
 
     it('should reuse objects if specified as singleton', function() {
         var created = 0;
+
+        @Inject()
         class Hejsan {
             constructor() {
                 created++;
             }
         }
+
         var module = new Module();
         module.bind(Hejsan).to(Hejsan).asSingleton();
         var injector = new Injector(module);
@@ -61,11 +64,14 @@ describe('Injector', function() {
 
     it('should reuse objects if specified as singleton when using string injection', function() {
         var created = 0;
+
+        @Inject()
         class Hejsan {
             constructor() {
                 created++;
             }
         }
+
         var module = new Module();
         module.bind(Hejsan).to(Hejsan).asSingleton();
         var injector = new Injector(module);
@@ -176,26 +182,6 @@ describe('get() with type as string', function() {
         var injector = new Injector(module);
         assert(injector.get('Wheel'));
     });
-});
-
-describe('injection inferred from constructor arguments', function() {
-    it('should inject using constructor parameters when no static inject exists.', function() {
-        var module = new Module();
-        module.bind(SodaIngredient).to(Apple);
-        var injector = new Injector(module);
-        var soda = injector.get(Soda);
-        assert.equal(soda.sodaIngredient.getName(), 'apple');
-    });
-
-    it('should say which parameter failed when unable to inject using constructor arguments', function() {
-        var module = new Module();
-        var injector = new Injector(module);
-        assert.throws(function() {
-                var soda = injector.get(Soda);
-            },
-            /SodaIngredient/)
-    });
-
 });
 
 describe('Child injectors', function() {

@@ -13,6 +13,7 @@ describe.only("Singleton decorator", () => {
     it("should inject same object every time", () => {
 
         @Singleton()
+        @Inject()
         class NiceSingleton {
 
             counter:number;

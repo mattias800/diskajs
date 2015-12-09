@@ -1,5 +1,6 @@
 import Bike from "../../../test-resources/car/Bike";
 import Vehicle from "../../../test-resources/car/Vehicle";
+import IncStringProvider from "../../../test-resources/inc/IncStringProvider";
 import {
     Inject,
     Injector,
@@ -11,7 +12,8 @@ import {
 var assert = require('assert');
 
 describe("Inject decorator", () => {
-    it("should inject types specified by Inject decorator", () => {
+    it("should inject types specified by @Inject decorator", () => {
+
         @Inject(Vehicle)
         class VehicleContainer {
 
@@ -31,6 +33,7 @@ describe("Inject decorator", () => {
     });
 
     it("should work with Providers", () => {
+        @Inject()
         class VehicleFactory {
             createVehicle():Vehicle {
                 return new Vehicle();
@@ -80,4 +83,32 @@ describe("Inject decorator", () => {
             assert.equal(vehicleContainer.vehicle.getName(), "bike");
 
         });
+
+    it("should be able to inject a constructor with arguments, even though @Inject() contains no arguments", function() {
+
+        @Inject()
+        class UserAuthenticator {
+
+            mode;
+
+            constructor(mode) {
+                this.mode = mode;
+            }
+
+            authenticate() {
+                return true;
+            }
+
+        }
+
+        var module = new Module();
+        var injector = new Injector(module);
+        var userAuthenticator = injector.get(UserAuthenticator);
+        assert.equal(userAuthenticator.authenticate(), true);
+
+    });
+
+    it("should be possible to instantiate class with @Inject manually", () => {
+        var incStringProvider = new IncStringProvider();
+    });
 });

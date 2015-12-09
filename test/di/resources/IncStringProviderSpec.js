@@ -6,6 +6,7 @@ var assert = require('assert');
 describe('IncStringProvider', function() {
 
     it('should return an IncString', function() {
+        new IncStringProvider();
         assert(new IncStringProvider().get() instanceof IncString);
     });
 
