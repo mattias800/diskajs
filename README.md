@@ -75,8 +75,8 @@ export default class UserFactory {
 
 	createUser() {
 		return {};
-	}
-	
+	}	
+
 }
 ```
 
@@ -98,6 +98,7 @@ export default class UserFactory {
 	createUser() {
 		return {};
 	}
+
 }
 ```
 
@@ -121,6 +122,7 @@ export default class UserFactory {
 	createUser() {
 		return this.userDecorator.decorate({});
 	}
+
 }
 ```
 
@@ -158,6 +160,7 @@ export default class UserFactory {
 	createUser() {
 		return this.userDecorator.decorate({});
 	}
+
 }
 ```
 
@@ -201,6 +204,7 @@ export default class UserFactory {
     createUser() {
       return this.userDecorator.decorate({});
     }
+
 }
 ```
 
@@ -230,6 +234,7 @@ function CoffeeMaker(grinder) {
         this.grinder.grind();
         return 'brew';
     }
+
 }
 
 CoffeeMaker.inject = function() {
@@ -356,6 +361,7 @@ export class WheelProvider extends Provider {
     get() {
         return new Wheel({ type: 'iron' });
     }
+
 }
 ```
 
