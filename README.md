@@ -78,9 +78,9 @@ All classes that are instantiated by diska must either
 @Inject()
 export class UserFactory {
 
-    createUser() {
-      return {};
-    }
+	createUser() {
+		return {};
+	}
 }
 ```
 
@@ -93,13 +93,13 @@ What if we can't use decorators?
 @Inject()
 export class UserFactory {
 
-		static inject() {
-			return [];		 
-		}
+	static inject() {
+		return [];		 
+	}
 		 
-    createUser() {
-      return {};
-    }
+	createUser() {
+		return {};
+	}
 }
 ```
 
@@ -112,24 +112,24 @@ import {Inject} from "diskajs";
 @Inject(UserDecorator)
 export class UserFactory {
 
-		userDecorator:UserDecorator;
+	userDecorator:UserDecorator;
 		
-		constructor(userDecorator:UserDecorator) {
-				this.userDecorator = userDecorator;
-		}
+	constructor(userDecorator:UserDecorator) {
+		this.userDecorator = userDecorator;
+	}
 		
-    createUser() {
-      return this.userDecorator.decorate({});
-    }
+	createUser() {
+		return this.userDecorator.decorate({});
+	}
 }
 ```
 
 If you cannot use decorators, add the dependency to the list returned by `static inject()`.
 
 ```js
-		static inject() {
-			return [UserDecorator];		 
-		}
+static inject() {
+	return [UserDecorator];		 
+}
 ```
 
 Now when diska tries to create an instance, it finds that it needs a `UserDecorator` instance, 
