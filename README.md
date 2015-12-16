@@ -200,7 +200,7 @@ export class UserFactory {
 }
 ```
 
-What if we want to declare it as singleton in the binding, instead of forcing the class to always be a singleton?
+#### What if we want to declare it as singleton in the binding, instead of forcing the class to always be a singleton?
 
 ```js
 const module = new Module();
