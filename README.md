@@ -195,15 +195,15 @@ import {Inject, Singleton} from "diskajs";
 @Singleton()
 export default class UserFactory {
 
-    userDecorator:UserDecorator;
+  userDecorator:UserDecorator;
     
-    constructor(userDecorator:UserDecorator) {
-     this.userDecorator = userDecorator;
-    }
+  constructor(userDecorator:UserDecorator) {
+    this.userDecorator = userDecorator;
+  }
     
-    createUser() {
-      return this.userDecorator.decorate({});
-    }
+  createUser() {
+    return this.userDecorator.decorate({});
+  }
 
 }
 ```
@@ -228,17 +228,17 @@ var Grinder = require('./Grinder');
 
 function CoffeeMaker(grinder) {
 
-    this.grinder = grinder;
+  this.grinder = grinder;
     
-    this.brew = function() {
-        this.grinder.grind();
-        return 'brew';
-    }
+  this.brew = function() {
+    this.grinder.grind();
+    return 'brew';
+  }
 
 }
 
 CoffeeMaker.inject = function() {
-    return [Grinder];
+  return [Grinder];
 }
 ```
 
@@ -303,7 +303,7 @@ const arrayUtil:ArrayUtil = testInjector.get(ArrayUtil);
 
 describe("ArrayUtil", () => {
   it("should ...", () => {
-     // expect()...
+    // expect()...
   });
 });
 ```
@@ -328,7 +328,7 @@ const arrayUtil:ArrayUtil = localInjector.get(ArrayUtil);
 
 describe("ArrayUtil", () => {
   it("should ...", () => {
-     // expect()...
+    // expect()...
   });
 });
 ```
@@ -343,9 +343,9 @@ won't know how to instantiate a class. It will fail with an exception.
 ```js
 export class Wheel {
 
-    constructor(material) {
-        this.material = material;
-    }
+  constructor(material) {
+    this.material = material;
+  }
 
 }
 ```
@@ -358,9 +358,9 @@ import {Wheel} from './Wheel';
 
 export class WheelProvider extends Provider {
 
-    get() {
-        return new Wheel({ type: 'iron' });
-    }
+  get() {
+    return new Wheel({ type: 'iron' });
+  }
 
 }
 ```
