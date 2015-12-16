@@ -59,7 +59,7 @@ Let's start with an empty module.
 import UserFactory from "./UserFactory";
 const module = new Module();
 const injector = new Injector(module);
-const userFactory:UserFactory = injector.get(UserFactory);
+const userFactory = injector.get(UserFactory);
 ```
 
 This should give you an instance of UserFactory.
@@ -196,7 +196,7 @@ You can bind another type to it. Setup a new module that is used just for tests 
 const module = new Module();
 module.bind(UserFactory).to(MockedUserFactory);
 const injector = new Injector(module);
-const userFactory:UserFactory = injector.get(UserFactory);
+const userFactory = injector.get(UserFactory);
 ```
 
 #### What if we want the `UserFactory` to be a singleton, so that we reuse it instead of creating new instances all the time?
