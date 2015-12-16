@@ -296,6 +296,19 @@ The injector that is created from that module can then be imported into your tes
 If a test requires something specific for that test only, you can create a local module, and a child injector with that module.
 More on child injectors further down.
 
+```js
+import {injector} from '../../di/injector';
+import ArrayUtil from '../../../src/common/util/ArrayUtil';
+
+var arrayUtil:ArrayUtil = injector.get(ArrayUtil);
+
+describe("ArrayUtil", () => {
+	it("should ...", () => {
+	   // expect()...
+	});
+});
+```
+
 ### Providers
 
 If the class we are trying to inject lacks a `@Inject()` (or `static inject()`), the injector
