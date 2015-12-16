@@ -174,7 +174,8 @@ const injector = new Injector(module);
 const userFactory:UserFactory = injector.get(UserFactory);
 ```
 
-What if we want the `UserFactory` to be a singleton, so that we reuse it instead of creating new instances all the time?
+#### What if we want the `UserFactory` to be a singleton, so that we reuse it instead of creating new instances all the time?
+
 Add `@Singleton()` to the class.
 
 ```js
