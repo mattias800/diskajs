@@ -37,6 +37,10 @@ You can also check out this repository to see how to setup diska with Node or Re
 
 https://github.com/mattias800/diskajs-examples
 
+These have not been updated in a while though, and do not use decorators.
+Also, they were made for an older version of React Native where Webpack was required for diska to work.
+You can use diska in React Native projects without Webpack now.
+
 ## Dependency injection
 
 To learn how dependency injection and Guice works, please see the Guice documentation.
