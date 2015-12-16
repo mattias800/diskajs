@@ -202,6 +202,7 @@ export class UserFactory {
 
 #### What if we want to declare it as singleton in the binding, instead of forcing the class to always be a singleton?
 
+Just add `.asSingleton()` to the binding.
 ```js
 const module = new Module();
 module.bind(UserFactory).to(UserFactory).asSingleton();
