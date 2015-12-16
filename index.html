@@ -96,7 +96,7 @@ And to get an injector, you need a module that defines what to inject.</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">UserFactory</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./UserFactory<span class="pl-pds">"</span></span>;
 <span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(<span class="pl-c1">module</span>);
-<span class="pl-k">const</span> userFactory<span class="pl-k">:</span><span class="pl-c1">UserFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
+<span class="pl-k">const</span> <span class="pl-c1">userFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
 
 <p>This should give you an instance of UserFactory.</p>
 
@@ -227,7 +227,7 @@ that it cannot create, in which case an exception is thrown.</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-smi">module</span>.<span class="pl-en">bind</span>(UserFactory).<span class="pl-en">to</span>(MockedUserFactory);
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(<span class="pl-c1">module</span>);
-<span class="pl-k">const</span> userFactory<span class="pl-k">:</span><span class="pl-c1">UserFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
+<span class="pl-k">const</span> <span class="pl-c1">userFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
 
 <h4>
 <a id="what-if-we-want-the-userfactory-to-be-a-singleton-so-that-we-reuse-it-instead-of-creating-new-instances-all-the-time" class="anchor" href="#what-if-we-want-the-userfactory-to-be-a-singleton-so-that-we-reuse-it-instead-of-creating-new-instances-all-the-time" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if we want the <code>UserFactory</code> to be a singleton, so that we reuse it instead of creating new instances all the time?</h4>
