@@ -151,8 +151,8 @@ export default class UserFactory {
 	userDecorator:UserDecorator;
 	userTransformer:UserTransformer;
 		
-	constructor(userDecorator:UserDecorator,
-							userTransformer:UserTransformer) {
+  constructor(userDecorator:UserDecorator,
+              userTransformer:UserTransformer) {
 		this.userDecorator = userDecorator;
 		this.userTransformer = userTransformer;
 	}
