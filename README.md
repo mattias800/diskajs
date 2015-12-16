@@ -73,9 +73,9 @@ All classes that are instantiated by diska must either
 @Inject()
 export default class UserFactory {
 
-	createUser() {
-		return {};
-	}	
+  createUser() {
+    return {};
+  }  
 
 }
 ```
@@ -91,13 +91,13 @@ If there are no dependencies, it should just return an empty list.
 ```js
 export default class UserFactory {
 
-	static inject() {
-		return [];		 
-	}
-		 
-	createUser() {
-		return {};
-	}
+  static inject() {
+    return [];     
+  }
+     
+  createUser() {
+    return {};
+  }
 
 }
 ```
@@ -113,15 +113,15 @@ import {Inject} from "diskajs";
 @Inject(UserDecorator)
 export default class UserFactory {
 
-	userDecorator:UserDecorator;
-		
-	constructor(userDecorator:UserDecorator) {
-		this.userDecorator = userDecorator;
-	}
-		
-	createUser() {
-		return this.userDecorator.decorate({});
-	}
+  userDecorator:UserDecorator;
+    
+  constructor(userDecorator:UserDecorator) {
+    this.userDecorator = userDecorator;
+  }
+    
+  createUser() {
+    return this.userDecorator.decorate({});
+  }
 
 }
 ```
@@ -130,7 +130,7 @@ If you cannot use decorators, add the dependency to the list returned by `static
 
 ```js
 static inject() {
-	return [UserDecorator];		 
+  return [UserDecorator];     
 }
 ```
 
@@ -148,18 +148,18 @@ import {Inject} from "diskajs";
 @Inject(UserDecorator, UserTransformer)
 export default class UserFactory {
 
-	userDecorator:UserDecorator;
-	userTransformer:UserTransformer;
-		
+  userDecorator:UserDecorator;
+  userTransformer:UserTransformer;
+    
   constructor(userDecorator:UserDecorator,
               userTransformer:UserTransformer) {
-		this.userDecorator = userDecorator;
-		this.userTransformer = userTransformer;
-	}
-		
-	createUser() {
-		return this.userDecorator.decorate({});
-	}
+    this.userDecorator = userDecorator;
+    this.userTransformer = userTransformer;
+  }
+    
+  createUser() {
+    return this.userDecorator.decorate({});
+  }
 
 }
 ```
@@ -195,12 +195,12 @@ import {Inject, Singleton} from "diskajs";
 @Singleton()
 export default class UserFactory {
 
-		userDecorator:UserDecorator;
-		
-		constructor(userDecorator:UserDecorator) {
-				this.userDecorator = userDecorator;
-		}
-		
+    userDecorator:UserDecorator;
+    
+    constructor(userDecorator:UserDecorator) {
+     this.userDecorator = userDecorator;
+    }
+    
     createUser() {
       return this.userDecorator.decorate({});
     }
@@ -302,9 +302,9 @@ import ArrayUtil from 'path/to/ArrayUtil';
 const arrayUtil:ArrayUtil = testInjector.get(ArrayUtil);
 
 describe("ArrayUtil", () => {
-	it("should ...", () => {
-	   // expect()...
-	});
+  it("should ...", () => {
+     // expect()...
+  });
 });
 ```
 
@@ -327,9 +327,9 @@ const arrayUtil:ArrayUtil = localInjector.get(ArrayUtil);
 // arrayUtil is an ArrayUtilMock instance
 
 describe("ArrayUtil", () => {
-	it("should ...", () => {
-	   // expect()...
-	});
+  it("should ...", () => {
+     // expect()...
+  });
 });
 ```
 
@@ -379,16 +379,16 @@ import {SomeDependency} from './SomeDependency';
 @Inject(SomeDependency)
 export class SomeProvider extends Provider {
 
-	someDependency:SomeDependency;
-	
-	constructor(someDependency:SomeDependency) {
-		super();
-		this.someDependency = someDependency;
-	}
+  someDependency:SomeDependency;
+  
+  constructor(someDependency:SomeDependency) {
+    super();
+    this.someDependency = someDependency;
+  }
 
-	get() {
-		return this.someDependency.createAwesomeStuff();
-	}
+  get() {
+    return this.someDependency.createAwesomeStuff();
+  }
 
 }
 ```
