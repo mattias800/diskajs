@@ -87,7 +87,7 @@ export class UserFactory {
 The `@Inject()` tells diska that this class can be instantiated, and has no dependencies. 
 It creates the instance by running the constructor with no arguments.
 
-What if we can't use decorators?
+#### What if we can't use decorators?
 
 ```js
 @Inject()
@@ -134,9 +134,38 @@ static inject() {
 
 Now when diska tries to create an instance, it finds that it needs a `UserDecorator` instance, 
 so it creates an instance of it in the same way it is trying to create an instance of `UserDecorator`.
-This goes on recursively until it has created all dependencies in the object tree (or fails).
 
-What if we have a mock version of `UserFactory` that we want to use in our tests?
+#### What if you have more than one dependency?
+
+```js
+import UserDecorator from "./UserDecorator";
+import {Inject} from "diskajs";
+
+@Inject(UserDecorator, UserTransformer)
+export class UserFactory {
+
+	userDecorator:UserDecorator;
+	userTransformer:UserTransformer;
+		
+	constructor(userDecorator:UserDecorator,
+							userTransformer:UserTransformer) {
+		this.userDecorator = userDecorator;
+		this.userTransformer = userTransformer;
+	}
+		
+	createUser() {
+		return this.userDecorator.decorate({});
+	}
+}
+```
+
+The injected dependencies are passed to the constructor in the same order as in the `@Inject()` decoration.
+In this case, the UserDecorator instance will be passed as first argument, and UserTransformer as the second argument.
+
+If any of these classes have dependencies, diska will try to instantiate them as well.
+This is repeated recursively until it has created all dependencies in the object tree (or fails).
+
+#### What if we have a mock version of `UserFactory` that we want to use in our tests?
 
 ```js
 const module = new Module();
