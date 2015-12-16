@@ -9,7 +9,7 @@ import {
     Module
 } from "../../../src/index";
 
-var assert = require('assert');
+var assert = require("assert");
 
 describe("Inject decorator", () => {
     it("should inject types specified by @Inject decorator", () => {
