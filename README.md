@@ -143,10 +143,11 @@ so it creates an instance of it in the same way it is trying to create an instan
 
 #### What if you have more than one dependency?
 
-Just add more to the `@Inject(...)` decoration.
+Just add more types to the `@Inject(...)` decoration.
 
 ```js
 import UserDecorator from "./UserDecorator";
+import UserTransformer from "./UserTransformer";
 import {Inject} from "diskajs";
 
 @Inject(UserDecorator, UserTransformer)
@@ -175,6 +176,17 @@ In this case, the `UserDecorator` instance will be passed as first argument, and
 If any of these classes have dependencies, diska will try to instantiate them as well.
 This is repeated recursively until it has created all dependencies in the object tree, or until it reaches a dependency 
 that it cannot create, in which case an exception is thrown.
+
+#### What if I want to inject a very specific instance of an object?
+
+You can do that when binding.
+
+```js
+import User from "./User";
+let myVerySpecificUser = new User(1);
+const module = new Module();
+module.bind(User).toInstance(myVerySpecificUser);
+```
 
 #### What if we have a mock version of `UserFactory` that we want to use in our tests?
 
