@@ -60,6 +60,7 @@ And to get an injector, you need a module that defines what to inject.
 Let's start with an empty module.
 
 ```js
+import UserFactory from "./UserFactory";
 const module = new Module();
 const injector = new Injector(module);
 const userFactory:UserFactory = injector.get(UserFactory);
@@ -76,7 +77,7 @@ All classes that are instantiated by diska must either
 
 ```js
 @Inject()
-export class UserFactory {
+export default class UserFactory {
 
 	createUser() {
 		return {};
@@ -91,7 +92,7 @@ It creates the instance by running the constructor with no arguments.
 
 ```js
 @Inject()
-export class UserFactory {
+export default class UserFactory {
 
 	static inject() {
 		return [];		 
@@ -110,7 +111,7 @@ import UserDecorator from "./UserDecorator";
 import {Inject} from "diskajs";
 
 @Inject(UserDecorator)
-export class UserFactory {
+export default class UserFactory {
 
 	userDecorator:UserDecorator;
 		
@@ -142,7 +143,7 @@ import UserDecorator from "./UserDecorator";
 import {Inject} from "diskajs";
 
 @Inject(UserDecorator, UserTransformer)
-export class UserFactory {
+export default class UserFactory {
 
 	userDecorator:UserDecorator;
 	userTransformer:UserTransformer;
@@ -186,7 +187,7 @@ import {Inject, Singleton} from "diskajs";
 
 @Inject(UserDecorator)
 @Singleton()
-export class UserFactory {
+export default class UserFactory {
 
 		userDecorator:UserDecorator;
 		
@@ -238,11 +239,11 @@ CoffeeMaker.inject = function() {
 A module is a configuration that defines what the injector should inject.
 
 ```js
-var module = new Module();
+const module = new Module();
 module.bind(Grinder).to(Grinder);
 module.bind(CoffeeMaker).to(CoffeeMaker);
-var injector = new Injector(module);
-var coffeeMaker = injector.get(CoffeeMaker);
+const injector = new Injector(module);
+const coffeeMaker = injector.get(CoffeeMaker);
 coffeeMaker.brew();
 ```
 
@@ -250,9 +251,9 @@ In this example we only have one type of Grinder and CoffeeMaker.
 Binding a class to itself is optional and we can remove them.
 
 ```js
-var module = new Module();
-var injector = new Injector(module);
-var coffeeMaker = injector.get(CoffeeMaker);
+const module = new Module();
+const injector = new Injector(module);
+const coffeeMaker = injector.get(CoffeeMaker);
 coffeeMaker.brew();
 ```
 
@@ -261,10 +262,10 @@ When there is no binding, and we try to inject `CoffeeMaker`, it will just injec
 But you could easily pass in a mock instead, for example when running tests.
 
 ```js
-var module = new Module();
+const module = new Module();
 module.bind(Grinder).to(GrinderMock);
-var injector = new Injector(module);
-var coffeeMaker = injector.get(CoffeeMaker);
+const injector = new Injector(module);
+const coffeeMaker = injector.get(CoffeeMaker);
 coffeeMaker.brew();
 ```
 
@@ -274,15 +275,15 @@ The injector constructor can take multiple arguments, where all arguments are mo
 or one array with modules.
 
 ```js
-var module1 = new Module();
-var module2 = new Module();
-var injector = new Injector([module1, module2]);
+const module1 = new Module();
+const module2 = new Module();
+const injector = new Injector([module1, module2]);
 ```
 
 ```js
-var module1 = new Module();
-var module2 = new Module();
-var injector = new Injector(module1, module2);
+const module1 = new Module();
+const module2 = new Module();
+const injector = new Injector(module1, module2);
 ```
 
 If multiple modules contain binding for the same type, the binding of the first module
@@ -300,7 +301,7 @@ More on child injectors further down.
 import {injector} from '../../di/injector';
 import ArrayUtil from '../../../src/common/util/ArrayUtil';
 
-var arrayUtil:ArrayUtil = injector.get(ArrayUtil);
+const arrayUtil:ArrayUtil = injector.get(ArrayUtil);
 
 describe("ArrayUtil", () => {
 	it("should ...", () => {
