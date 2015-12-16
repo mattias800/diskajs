@@ -50,23 +50,12 @@ If you use Babel 6 to compile your code, you can still use diska without decorat
 <pre><code>npm install diskajs --save-dev
 </code></pre>
 
-<p>You could also download the repository and just reference the files directly.</p>
-
-<p><code>src/index.js</code> for ES6+ (Babel) sources.</p>
-
-<p><code>lib/index.js</code> for ES5 sources that was compiled from ES6 sources with Babel.</p>
-
 <h2>
 <a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility</h2>
 
 <ul>
 <li>Babel 5.x (all features)</li>
 <li>Babel 6.x (no decorators)</li>
-</ul>
-
-<p>diska works with everything if you compile your code with Babel.</p>
-
-<ul>
 <li>Node</li>
 <li>React Native 0.15 (all features, uses Babel 5)</li>
 <li>React Native 0.16 (no decorators, uses Babel 6)</li>
@@ -77,7 +66,8 @@ If you use Babel 6 to compile your code, you can still use diska without decorat
 
 <p>The tests contain a lot of sample code. They test all features of diska.</p>
 
-<p><a href="https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js">https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js</a></p>
+<p>You can find most of them here:
+<a href="https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js">https://github.com/mattias800/diskajs/blob/master/test/di/InjectorSpec.js</a></p>
 
 <p>You can also check out this repository to see how to setup diska with Node or React Native:</p>
 
@@ -104,12 +94,17 @@ And to get an injector, you need a module that defines what to inject.</p>
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(<span class="pl-c1">module</span>);
 <span class="pl-k">const</span> userFactory<span class="pl-k">:</span><span class="pl-c1">UserFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
 
-<p>This should give you an instance of UserFactory.
-But what does the UserFactory look like?</p>
+<p>This should give you an instance of UserFactory.</p>
 
-<p>All classes that are instantiated by diska must either
-1. Be decorated with <code>@Inject()</code> or
-2. have a <code>static inject()</code> method that returns a list of types to be injected.</p>
+<h4>
+<a id="but-what-does-the-userfactory-look-like" class="anchor" href="#but-what-does-the-userfactory-look-like" aria-hidden="true"><span class="octicon octicon-link"></span></a>But what does the UserFactory look like?</h4>
+
+<p>All classes that are instantiated by diska must either</p>
+
+<ol>
+<li>Be decorated with <code>@Inject()</code> or</li>
+<li>have a <code>static inject()</code> method that returns a list of types to be injected.</li>
+</ol>
 
 <p><code>UserFactory</code> can look like this:</p>
 
@@ -119,16 +114,19 @@ But what does the UserFactory look like?</p>
     <span class="pl-en">createUser</span>() {
         <span class="pl-k">return</span> {};
     }
+
 }</pre></div>
 
-<p>The <code>@Inject()</code> tells diska that this class can be instantiated, and has no dependencies. 
+<p>The <code>@Inject()</code> decorator tells diska that this class can be instantiated, and has no dependencies. 
 It creates the instance by running the constructor with no arguments.</p>
 
 <h4>
 <a id="what-if-we-cant-use-decorators" class="anchor" href="#what-if-we-cant-use-decorators" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if we can't use decorators?</h4>
 
-<div class="highlight highlight-source-js"><pre>@<span class="pl-en">Inject</span>()
-<span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
+<p>Use <code>static inject()</code> instead. It is a method that must return a list of dependency types.
+If there are no dependencies, it should just return an empty list.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
     <span class="pl-k">static</span> <span class="pl-en">inject</span>() {
         <span class="pl-k">return</span> [];       
@@ -138,6 +136,9 @@ It creates the instance by running the constructor with no arguments.</p>
         <span class="pl-k">return</span> {};
     }
 }</pre></div>
+
+<h4>
+<a id="but-how-do-i-add-a-dependency" class="anchor" href="#but-how-do-i-add-a-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>But how do I add a dependency?</h4>
 
 <p>To add a dependency, import it, add it to <code>@Inject</code> parameters and add a constructor argument.</p>
 
@@ -170,6 +171,8 @@ so it creates an instance of it in the same way it is trying to create an instan
 <h4>
 <a id="what-if-you-have-more-than-one-dependency" class="anchor" href="#what-if-you-have-more-than-one-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if you have more than one dependency?</h4>
 
+<p>Just add more to the <code>@Inject(...)</code> decoration.</p>
+
 <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">UserDecorator</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./UserDecorator<span class="pl-pds">"</span></span>;
 <span class="pl-k">import</span> {<span class="pl-smi">Inject</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>diskajs<span class="pl-pds">"</span></span>;
 
@@ -190,16 +193,18 @@ so it creates an instance of it in the same way it is trying to create an instan
     }
 }</pre></div>
 
-<p>The injected dependencies are passed to the constructor in the same order as in the <code>@Inject()</code> decoration.
-In this case, the UserDecorator instance will be passed as first argument, and UserTransformer as the second argument.</p>
+<p>The injected dependency instances are passed to the constructor in the same order as they are 
+specified in the <code>@Inject()</code> decoration.
+In this case, the <code>UserDecorator</code> instance will be passed as first argument, and <code>UserTransformer</code> as the second argument.</p>
 
 <p>If any of these classes have dependencies, diska will try to instantiate them as well.
-This is repeated recursively until it has created all dependencies in the object tree (or fails).</p>
+This is repeated recursively until it has created all dependencies in the object tree, or until it reaches a dependency 
+that it cannot create, in which case an exception is thrown.</p>
 
 <h4>
 <a id="what-if-we-have-a-mock-version-of-userfactory-that-we-want-to-use-in-our-tests" class="anchor" href="#what-if-we-have-a-mock-version-of-userfactory-that-we-want-to-use-in-our-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if we have a mock version of <code>UserFactory</code> that we want to use in our tests?</h4>
 
-<p>Just bind the mock version.</p>
+<p>You can bind another type to it. Setup a new module that is used just for tests (are that specific test).</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-smi">module</span>.<span class="pl-en">bind</span>(UserFactory).<span class="pl-en">to</span>(MockedUserFactory);
@@ -281,27 +286,22 @@ Binding a class to itself is optional and we can remove them.</p>
 <span class="pl-k">const</span> <span class="pl-c1">coffeeMaker</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(CoffeeMaker);
 <span class="pl-smi">coffeeMaker</span>.<span class="pl-en">brew</span>();</pre></div>
 
-<p>When there is no binding, and we try to inject <code>CoffeeMaker</code>, it will just inject <code>CoffeeMaker</code>.</p>
-
-<p>But you could easily pass in a mock instead, for example when running tests.</p>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
-<span class="pl-smi">module</span>.<span class="pl-en">bind</span>(Grinder).<span class="pl-en">to</span>(GrinderMock);
-<span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(<span class="pl-c1">module</span>);
-<span class="pl-k">const</span> <span class="pl-c1">coffeeMaker</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(CoffeeMaker);
-<span class="pl-smi">coffeeMaker</span>.<span class="pl-en">brew</span>();</pre></div>
+<p>When there is no binding for that type in th emodul and we try to inject <code>CoffeeMaker</code>, 
+it will just inject an instance of <code>CoffeeMaker</code>.</p>
 
 <h4>
 <a id="using-multiple-modules" class="anchor" href="#using-multiple-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using multiple modules</h4>
 
-<p>The injector constructor can take multiple arguments, where all arguments are modules,
-or one array with modules.</p>
+<p>The injector constructor can take multiple arguments where all arguments are modules, 
+or one argument that is an array of modules.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module1</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// One argument that is an array of modules</span>
+<span class="pl-k">const</span> <span class="pl-c1">module1</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-k">const</span> <span class="pl-c1">module2</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>([module1, module2]);</pre></div>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module1</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Several arguments that are all modules</span>
+<span class="pl-k">const</span> <span class="pl-c1">module1</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-k">const</span> <span class="pl-c1">module2</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(module1, module2);</pre></div>
 
@@ -311,16 +311,13 @@ in the array or arguments will be used.</p>
 <h4>
 <a id="unit-tests" class="anchor" href="#unit-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unit tests</h4>
 
-<p>When testing, you typically create a module that is used to create instances in the tests.
-The injector that is created from that module can then be imported into your test modules and used to create instances.</p>
+<p>When testing, you typically create a separate testing module that is used to create instances in your tests.
+The injector that is created with that module can then be imported in your test code and used to create instances.</p>
 
-<p>If a test requires something specific for that test only, you can create a local module, and a child injector with that module.
-More on child injectors further down.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">testInjector</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>path/to/testInjector<span class="pl-pds">'</span></span>;
+<span class="pl-k">import</span> <span class="pl-smi">ArrayUtil</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>path/to/ArrayUtil<span class="pl-pds">'</span></span>;
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">injector</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>../../di/injector<span class="pl-pds">'</span></span>;
-<span class="pl-k">import</span> <span class="pl-smi">ArrayUtil</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>../../../src/common/util/ArrayUtil<span class="pl-pds">'</span></span>;
-
-<span class="pl-k">const</span> arrayUtil<span class="pl-k">:</span><span class="pl-c1">ArrayUtil</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(ArrayUtil);
+<span class="pl-k">const</span> arrayUtil<span class="pl-k">:</span><span class="pl-c1">ArrayUtil</span> <span class="pl-k">=</span> <span class="pl-smi">testInjector</span>.<span class="pl-en">get</span>(ArrayUtil);
 
 <span class="pl-en">describe</span>(<span class="pl-s"><span class="pl-pds">"</span>ArrayUtil<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
     <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
@@ -328,10 +325,35 @@ More on child injectors further down.</p>
     });
 });</pre></div>
 
+<p>If a test requires something specific for that test only, you can create a local module, and a child injector with that module.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">Injector</span>, <span class="pl-smi">Module</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>diskajs<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">import</span> {<span class="pl-smi">testInjector</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>path/to/testInjector<span class="pl-pds">'</span></span>;
+<span class="pl-k">import</span> <span class="pl-smi">ArrayUtil</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>path/to/ArrayUtil<span class="pl-pds">'</span></span>;
+<span class="pl-k">import</span> <span class="pl-smi">ArrayUtilMock</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>path/to/ArrayUtilMock<span class="pl-pds">'</span></span>;
+
+<span class="pl-k">const</span> <span class="pl-c1">localModule</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
+<span class="pl-smi">module</span>.<span class="pl-en">bind</span>(ArrayUtil).<span class="pl-en">to</span>(ArrayUtilMock);
+
+<span class="pl-k">const</span> <span class="pl-c1">localInjector</span> <span class="pl-k">=</span> <span class="pl-smi">testInjector</span>.<span class="pl-en">getChildInjector</span>(localModule);
+
+<span class="pl-k">const</span> arrayUtil<span class="pl-k">:</span><span class="pl-c1">ArrayUtil</span> <span class="pl-k">=</span> <span class="pl-smi">localInjector</span>.<span class="pl-en">get</span>(ArrayUtil);
+
+<span class="pl-c">// arrayUtil is an ArrayUtilMock instance</span>
+
+<span class="pl-en">describe</span>(<span class="pl-s"><span class="pl-pds">"</span>ArrayUtil<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
+    <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
+       <span class="pl-c">// expect()...</span>
+    });
+});</pre></div>
+
+<p>More on child injectors further down.</p>
+
 <h3>
 <a id="providers" class="anchor" href="#providers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Providers</h3>
 
-<p>If the class we are trying to inject lacks a <code>@Inject()</code> (or <code>static inject()</code>), the injector
+<p>If the class we are trying to inject lacks an <code>@Inject()</code> decoration (or <code>static inject()</code>), the injector
 won't know how to instantiate a class. It will fail with an exception.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">Wheel</span> {
@@ -342,8 +364,7 @@ won't know how to instantiate a class. It will fail with an exception.</p>
 
 }</pre></div>
 
-<p>You can supply the module with a provider for Wheel. The provider must extend 
-the Provider class in diska.</p>
+<p>You can supply the module with a provider for <code>Wheel</code>. The provider must extend the <code>Provider</code> class in diska.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">Provider</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>diskajs<span class="pl-pds">'</span></span>;
 <span class="pl-k">import</span> {<span class="pl-smi">Wheel</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>./Wheel<span class="pl-pds">'</span></span>;
@@ -356,26 +377,28 @@ the Provider class in diska.</p>
 }</pre></div>
 
 <p>This way we delegate the responsibility of instantiating the class to the provider, and diska will 
-instantiate the <code>WheelProvider</code> and run <code>get()</code> to get the Wheel instance.</p>
+instantiate <code>WheelProvider</code> and run <code>get()</code> to get the Wheel instance.</p>
 
 <h4>
 <a id="providers-can-have-dependencies" class="anchor" href="#providers-can-have-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Providers can have dependencies</h4>
 
 <p>If you want, you can add an <code>@Inject()</code> (or <code>static inject()</code>) to your provider and these dependencies will be injected.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">Provider</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>diska<span class="pl-pds">'</span></span>;
-<span class="pl-k">import</span> {<span class="pl-smi">AnyString</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>./AnyString<span class="pl-pds">'</span></span>;
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {<span class="pl-smi">Provider</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>diskajs<span class="pl-pds">'</span></span>;
+<span class="pl-k">import</span> {<span class="pl-smi">SomeDependency</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>./SomeDependency<span class="pl-pds">'</span></span>;
 
-@<span class="pl-en">Inject</span>(AnyString)
-<span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">InjectedAnyStringProvider</span> <span class="pl-k">extends</span> <span class="pl-en">Provider</span> {
+@<span class="pl-en">Inject</span>(SomeDependency)
+<span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">SomeProvider</span> <span class="pl-k">extends</span> <span class="pl-en">Provider</span> {
 
-    <span class="pl-en">constructor</span>(<span class="pl-smi">incString</span>) {
+    someDependency<span class="pl-k">:</span>SomeDependency;
+
+    <span class="pl-en">constructor</span>(<span class="pl-smi">someDependency</span>:<span class="pl-smi">SomeDependency</span>) {
         <span class="pl-v">super</span>();
-        <span class="pl-v">this</span>.<span class="pl-smi">incString</span> <span class="pl-k">=</span> incString;
+        <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span> <span class="pl-k">=</span> someDependency;
     }
 
     <span class="pl-en">get</span>() {
-        <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">incString</span>;
+        <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span>.<span class="pl-en">createAwesomeStuff</span>();
     }
 
 }</pre></div>
@@ -383,7 +406,7 @@ instantiate the <code>WheelProvider</code> and run <code>get()</code> to get the
 <h3>
 <a id="singletons" class="anchor" href="#singletons" aria-hidden="true"><span class="octicon octicon-link"></span></a>Singletons</h3>
 
-<p>Some objects, such as services, should be reused and only instantiated once.</p>
+<p>Some objects, such as services and transformers, should be reused and only instantiated once.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-en">bind</span>(UserService).<span class="pl-en">to</span>(UserServiceRestApi).<span class="pl-en">asSingleton</span>();</pre></div>
 
@@ -391,7 +414,7 @@ instantiate the <code>WheelProvider</code> and run <code>get()</code> to get the
 and after that, whenever a class needs a <code>UserService</code>, that instance of the
 <code>UserServiceRestApi</code> object will be injected.</p>
 
-<p>You can also decorate <code>UserServiceRestApi</code> with <code>@Singleton()</code>.</p>
+<p>You can also decorate the <code>UserService</code> or <code>UserServiceRestApi</code> class with <code>@Singleton()</code>.</p>
 
 <h4>
 <a id="singletons-and-providers" class="anchor" href="#singletons-and-providers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Singletons and providers</h4>
@@ -409,8 +432,8 @@ The provider will only be instantiated once, and <code>get()</code> will only be
 <a id="child-injectors" class="anchor" href="#child-injectors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Child injectors</h3>
 
 <p>diska supports child injectors.
-You can get a child injector from an injector by calling <code>injector.getChildInjector()</code>
-with one or more modules for the child injector as argument.</p>
+You can get a child injector from an injector by calling <code>injector.getChildInjector()</code> with one or more modules 
+for the child injector as argument.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-smi">module</span>.<span class="pl-en">bind</span>(GlobalService).<span class="pl-en">toProvider</span>(GlobalServiceProvider).<span class="pl-en">asSingleton</span>();
@@ -421,9 +444,12 @@ with one or more modules for the child injector as argument.</p>
 <span class="pl-k">var</span> service <span class="pl-k">=</span> <span class="pl-smi">childInjector</span>.<span class="pl-en">get</span>(LocalService);
 <span class="pl-k">var</span> error <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(LocalService); <span class="pl-c">// Throws exception</span></pre></div>
 
-<p>Modules added to the child injectors will not be available in the parent injector.
-The bindings in the child injector module are derived from the parent injector module and the parent injector is not changed in any way.
-If the binding already exists in the parent, it is overridden for the child injector.</p>
+<p>Modules added to the child injectors will not be added to the parent injector.</p>
+
+<p>The bindings in the child injector module are derived from the parent injector module and the parent 
+injector is not changed in any way.</p>
+
+<p>If the binding already exists in the parent, it is overridden for the child injector.</p>
 
 <h2>
 <a id="running-the-tests" class="anchor" href="#running-the-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running the tests</h2>
