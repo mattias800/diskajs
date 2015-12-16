@@ -167,6 +167,8 @@ This is repeated recursively until it has created all dependencies in the object
 
 #### What if we have a mock version of `UserFactory` that we want to use in our tests?
 
+Just bind the mock version.
+
 ```js
 const module = new Module();
 module.bind(UserFactory).to(MockedUserFactory);
