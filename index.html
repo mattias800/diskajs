@@ -177,9 +177,10 @@ so it creates an instance of it in the same way it is trying to create an instan
 <h4>
 <a id="what-if-you-have-more-than-one-dependency" class="anchor" href="#what-if-you-have-more-than-one-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if you have more than one dependency?</h4>
 
-<p>Just add more to the <code>@Inject(...)</code> decoration.</p>
+<p>Just add more types to the <code>@Inject(...)</code> decoration.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">UserDecorator</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./UserDecorator<span class="pl-pds">"</span></span>;
+<span class="pl-k">import</span> <span class="pl-smi">UserTransformer</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./UserTransformer<span class="pl-pds">"</span></span>;
 <span class="pl-k">import</span> {<span class="pl-smi">Inject</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>diskajs<span class="pl-pds">"</span></span>;
 
 @<span class="pl-en">Inject</span>(UserDecorator, UserTransformer)
@@ -207,6 +208,16 @@ In this case, the <code>UserDecorator</code> instance will be passed as first ar
 <p>If any of these classes have dependencies, diska will try to instantiate them as well.
 This is repeated recursively until it has created all dependencies in the object tree, or until it reaches a dependency 
 that it cannot create, in which case an exception is thrown.</p>
+
+<h4>
+<a id="what-if-i-want-to-inject-a-very-specific-instance-of-an-object" class="anchor" href="#what-if-i-want-to-inject-a-very-specific-instance-of-an-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if I want to inject a very specific instance of an object?</h4>
+
+<p>You can do that when binding.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">User</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./User<span class="pl-pds">"</span></span>;
+<span class="pl-k">let</span> myVerySpecificUser <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-c1">1</span>);
+<span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
+<span class="pl-smi">module</span>.<span class="pl-en">bind</span>(User).<span class="pl-en">toInstance</span>(myVerySpecificUser);</pre></div>
 
 <h4>
 <a id="what-if-we-have-a-mock-version-of-userfactory-that-we-want-to-use-in-our-tests" class="anchor" href="#what-if-we-have-a-mock-version-of-userfactory-that-we-want-to-use-in-our-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>What if we have a mock version of <code>UserFactory</code> that we want to use in our tests?</h4>
