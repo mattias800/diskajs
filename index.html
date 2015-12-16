@@ -111,9 +111,9 @@ And to get an injector, you need a module that defines what to inject.</p>
 <div class="highlight highlight-source-js"><pre>@<span class="pl-en">Inject</span>()
 <span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
-    <span class="pl-en">createUser</span>() {
-        <span class="pl-k">return</span> {};
-    }   
+  <span class="pl-en">createUser</span>() {
+    <span class="pl-k">return</span> {};
+  }  
 
 }</pre></div>
 
@@ -128,13 +128,13 @@ If there are no dependencies, it should just return an empty list.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
-    <span class="pl-k">static</span> <span class="pl-en">inject</span>() {
-        <span class="pl-k">return</span> [];       
-    }
+  <span class="pl-k">static</span> <span class="pl-en">inject</span>() {
+    <span class="pl-k">return</span> [];     
+  }
 
-    <span class="pl-en">createUser</span>() {
-        <span class="pl-k">return</span> {};
-    }
+  <span class="pl-en">createUser</span>() {
+    <span class="pl-k">return</span> {};
+  }
 
 }</pre></div>
 
@@ -149,22 +149,22 @@ If there are no dependencies, it should just return an empty list.</p>
 @<span class="pl-en">Inject</span>(UserDecorator)
 <span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
-    userDecorator<span class="pl-k">:</span>UserDecorator;
+  userDecorator<span class="pl-k">:</span>UserDecorator;
 
-    <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>) {
-        <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
-    }
+  <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>) {
+    <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
+  }
 
-    <span class="pl-en">createUser</span>() {
-        <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
-    }
+  <span class="pl-en">createUser</span>() {
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
+  }
 
 }</pre></div>
 
 <p>If you cannot use decorators, add the dependency to the list returned by <code>static inject()</code>.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">static</span> <span class="pl-en">inject</span>() {
-    <span class="pl-k">return</span> [UserDecorator];      
+  <span class="pl-k">return</span> [UserDecorator];     
 }</pre></div>
 
 <p>Now when diska tries to create an instance, it finds that it needs a <code>UserDecorator</code> instance, 
@@ -181,18 +181,18 @@ so it creates an instance of it in the same way it is trying to create an instan
 @<span class="pl-en">Inject</span>(UserDecorator, UserTransformer)
 <span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
-    userDecorator<span class="pl-k">:</span>UserDecorator;
-    userTransformer<span class="pl-k">:</span>UserTransformer;
+  userDecorator<span class="pl-k">:</span>UserDecorator;
+  userTransformer<span class="pl-k">:</span>UserTransformer;
 
-    <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>,
-                            <span class="pl-smi">userTransformer</span>:<span class="pl-smi">UserTransformer</span>) {
-        <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
-        <span class="pl-v">this</span>.<span class="pl-smi">userTransformer</span> <span class="pl-k">=</span> userTransformer;
-    }
+  <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>,
+              <span class="pl-smi">userTransformer</span>:<span class="pl-smi">UserTransformer</span>) {
+    <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
+    <span class="pl-v">this</span>.<span class="pl-smi">userTransformer</span> <span class="pl-k">=</span> userTransformer;
+  }
 
-    <span class="pl-en">createUser</span>() {
-        <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
-    }
+  <span class="pl-en">createUser</span>() {
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
+  }
 
 }</pre></div>
 
@@ -226,15 +226,15 @@ that it cannot create, in which case an exception is thrown.</p>
 @<span class="pl-en">Singleton</span>()
 <span class="pl-k">export</span> <span class="pl-v">default</span> <span class="pl-k">class</span> <span class="pl-en">UserFactory</span> {
 
-        userDecorator<span class="pl-k">:</span>UserDecorator;
+  userDecorator<span class="pl-k">:</span>UserDecorator;
 
-        <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>) {
-                <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
-        }
+  <span class="pl-en">constructor</span>(<span class="pl-smi">userDecorator</span>:<span class="pl-smi">UserDecorator</span>) {
+    <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span> <span class="pl-k">=</span> userDecorator;
+  }
 
-    <span class="pl-en">createUser</span>() {
-      <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
-    }
+  <span class="pl-en">createUser</span>() {
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">userDecorator</span>.<span class="pl-en">decorate</span>({});
+  }
 
 }</pre></div>
 
@@ -258,17 +258,17 @@ Instead, you can use functions and set the <code>inject</code> property on the f
 
 <span class="pl-k">function</span> <span class="pl-en">CoffeeMaker</span>(<span class="pl-smi">grinder</span>) {
 
-    <span class="pl-v">this</span>.<span class="pl-smi">grinder</span> <span class="pl-k">=</span> grinder;
+  <span class="pl-v">this</span>.<span class="pl-smi">grinder</span> <span class="pl-k">=</span> grinder;
 
-    <span class="pl-v">this</span>.<span class="pl-smi">brew</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
-        <span class="pl-v">this</span>.<span class="pl-smi">grinder</span>.<span class="pl-en">grind</span>();
-        <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>brew<span class="pl-pds">'</span></span>;
-    }
+  <span class="pl-v">this</span>.<span class="pl-smi">brew</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+    <span class="pl-v">this</span>.<span class="pl-smi">grinder</span>.<span class="pl-en">grind</span>();
+    <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>brew<span class="pl-pds">'</span></span>;
+  }
 
 }
 
 <span class="pl-c1">CoffeeMaker</span>.<span class="pl-en">inject</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
-    <span class="pl-k">return</span> [Grinder];
+  <span class="pl-k">return</span> [Grinder];
 }</pre></div>
 
 <h3>
@@ -325,9 +325,9 @@ The injector that is created with that module can then be imported in your test 
 <span class="pl-k">const</span> arrayUtil<span class="pl-k">:</span><span class="pl-c1">ArrayUtil</span> <span class="pl-k">=</span> <span class="pl-smi">testInjector</span>.<span class="pl-en">get</span>(ArrayUtil);
 
 <span class="pl-en">describe</span>(<span class="pl-s"><span class="pl-pds">"</span>ArrayUtil<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
-    <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
-       <span class="pl-c">// expect()...</span>
-    });
+  <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
+    <span class="pl-c">// expect()...</span>
+  });
 });</pre></div>
 
 <p>If a test requires something specific for that test only, you can create a local module, and a child injector with that module.</p>
@@ -348,9 +348,9 @@ The injector that is created with that module can then be imported in your test 
 <span class="pl-c">// arrayUtil is an ArrayUtilMock instance</span>
 
 <span class="pl-en">describe</span>(<span class="pl-s"><span class="pl-pds">"</span>ArrayUtil<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
-    <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
-       <span class="pl-c">// expect()...</span>
-    });
+  <span class="pl-en">it</span>(<span class="pl-s"><span class="pl-pds">"</span>should ...<span class="pl-pds">"</span></span>, () <span class="pl-k">=&gt;</span> {
+    <span class="pl-c">// expect()...</span>
+  });
 });</pre></div>
 
 <p>More on child injectors further down.</p>
@@ -363,9 +363,9 @@ won't know how to instantiate a class. It will fail with an exception.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">Wheel</span> {
 
-    <span class="pl-en">constructor</span>(<span class="pl-smi">material</span>) {
-        <span class="pl-v">this</span>.<span class="pl-smi">material</span> <span class="pl-k">=</span> material;
-    }
+  <span class="pl-en">constructor</span>(<span class="pl-smi">material</span>) {
+    <span class="pl-v">this</span>.<span class="pl-smi">material</span> <span class="pl-k">=</span> material;
+  }
 
 }</pre></div>
 
@@ -376,9 +376,9 @@ won't know how to instantiate a class. It will fail with an exception.</p>
 
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">WheelProvider</span> <span class="pl-k">extends</span> <span class="pl-en">Provider</span> {
 
-    <span class="pl-en">get</span>() {
-        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Wheel</span>({ type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>iron<span class="pl-pds">'</span></span> });
-    }
+  <span class="pl-en">get</span>() {
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Wheel</span>({ type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>iron<span class="pl-pds">'</span></span> });
+  }
 
 }</pre></div>
 
@@ -396,16 +396,16 @@ instantiate <code>WheelProvider</code> and run <code>get()</code> to get the Whe
 @<span class="pl-en">Inject</span>(SomeDependency)
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">SomeProvider</span> <span class="pl-k">extends</span> <span class="pl-en">Provider</span> {
 
-    someDependency<span class="pl-k">:</span>SomeDependency;
+  someDependency<span class="pl-k">:</span>SomeDependency;
 
-    <span class="pl-en">constructor</span>(<span class="pl-smi">someDependency</span>:<span class="pl-smi">SomeDependency</span>) {
-        <span class="pl-v">super</span>();
-        <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span> <span class="pl-k">=</span> someDependency;
-    }
+  <span class="pl-en">constructor</span>(<span class="pl-smi">someDependency</span>:<span class="pl-smi">SomeDependency</span>) {
+    <span class="pl-v">super</span>();
+    <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span> <span class="pl-k">=</span> someDependency;
+  }
 
-    <span class="pl-en">get</span>() {
-        <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span>.<span class="pl-en">createAwesomeStuff</span>();
-    }
+  <span class="pl-en">get</span>() {
+    <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">someDependency</span>.<span class="pl-en">createAwesomeStuff</span>();
+  }
 
 }</pre></div>
 
