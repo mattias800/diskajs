@@ -261,7 +261,7 @@ that it cannot create, in which case an exception is thrown.</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>();
 <span class="pl-smi">module</span>.<span class="pl-en">bind</span>(UserFactory).<span class="pl-en">to</span>(UserFactory).<span class="pl-en">asSingleton</span>();
 <span class="pl-k">const</span> <span class="pl-c1">injector</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Injector</span>(<span class="pl-c1">module</span>);
-<span class="pl-k">const</span> userFactory<span class="pl-k">:</span><span class="pl-c1">UserFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
+<span class="pl-k">const</span> <span class="pl-c1">userFactory</span> <span class="pl-k">=</span> <span class="pl-smi">injector</span>.<span class="pl-en">get</span>(UserFactory);</pre></div>
 
 <h4>
 <a id="es5" class="anchor" href="#es5" aria-hidden="true"><span class="octicon octicon-link"></span></a>ES5</h4>
