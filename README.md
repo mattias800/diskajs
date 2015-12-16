@@ -231,7 +231,7 @@ Just add `.asSingleton()` to the binding.
 const module = new Module();
 module.bind(UserFactory).to(UserFactory).asSingleton();
 const injector = new Injector(module);
-const userFactory:UserFactory = injector.get(UserFactory);
+const userFactory = injector.get(UserFactory);
 ```
 
 #### ES5
