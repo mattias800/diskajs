@@ -20,9 +20,9 @@ import Orange from '../../test-resources/Soda/Orange';
 
 var assert = require('assert');
 
-describe('Injector', function() {
+describe('Injector', () => {
 
-    it('should work', function() {
+    it('should work', () => {
         var module = new Module();
         module.bind(Grinder).to(Grinder);
         module.bind(CoffeeMaker).to(CoffeeMaker);
@@ -31,20 +31,20 @@ describe('Injector', function() {
         assert(coffeeMaker.brew() === 'brew');
     });
 
-    it('should work with default injection', function() {
+    it('should work with default injection', () => {
         var injector = new Injector(new Module());
         var coffeeMaker = injector.get(CoffeeMaker);
         assert(coffeeMaker.brew() === 'brew');
     });
 
-    it('should create new objects by default', function() {
+    it('should create new objects by default', () => {
         var injector = new Injector(new Module());
         var incString1 = injector.get(IncString);
         var incString2 = injector.get(IncString);
         assert(incString1.getString() !== incString2.getString());
     });
 
-    it('should reuse objects if specified as singleton', function() {
+    it('should reuse objects if specified as singleton', () => {
         var created = 0;
 
         @Inject()
@@ -62,7 +62,7 @@ describe('Injector', function() {
         assert.equal(created, 1);
     });
 
-    it('should reuse objects if specified as singleton when using string injection', function() {
+    it('should reuse objects if specified as singleton when using string injection', () => {
         var created = 0;
 
         @Inject()
@@ -80,7 +80,7 @@ describe('Injector', function() {
         assert.equal(created, 1);
     });
 
-    it('should reuse objects if specified as singleton that is not injected', function() {
+    it('should reuse objects if specified as singleton that is not injected', () => {
         var module = new Module();
         module.bind(IncString).toProvider(IncStringProvider).asSingleton();
         var injector = new Injector(module);
@@ -89,7 +89,7 @@ describe('Injector', function() {
         assert(incString1.getString() === incString2.getString());
     });
 
-    it('should reuse objects if specified as singleton that is injected', function() {
+    it('should reuse objects if specified as singleton that is injected', () => {
         var module = new Module();
         module.bind(IncString).toProvider(InjectedAnyStringProvider).asSingleton();
         var injector = new Injector(module);
@@ -98,25 +98,25 @@ describe('Injector', function() {
         assert(incString1.getString() === incString2.getString());
     });
 
-    it('circular binding should throw exception', function() {
+    it('circular binding should throw exception', () => {
         var module = new Module();
         module.bind(IncString).toProvider(CircularIncStringProvider).asSingleton();
         var injector = new Injector(module);
-        assert.throws(function() {
+        assert.throws(() => {
             var incString1 = injector.get(IncString);
         });
     });
 
-    it('should throw when toProvider() is supplied with anything but providers', function() {
+    it('should throw when toProvider() is supplied with anything but providers', () => {
         var module = new Module();
         module.bind(AnyString).toProvider(ProviderWithoutExtends);
         var injector = new Injector(module);
-        assert.throws(function() {
+        assert.throws(() => {
             var obj = injector.get(AnyString);
         });
     });
 
-    it('should be able to use multiple modules', function() {
+    it('should be able to use multiple modules', () => {
         var carModule = new Module();
         var wheelModule = new Module();
         wheelModule.bind(Wheel).toProvider(WheelProvider);
@@ -124,14 +124,14 @@ describe('Injector', function() {
         var car = injector.get(Car);
     });
 
-    it('should handle one module as argument', function() {
+    it('should handle one module as argument', () => {
         var module = new Module();
         var injector = new Injector(module);
         assert(injector.modules.length === 1);
         assert(injector.modules[0] === module);
     });
 
-    it('should handle module list as argument', function() {
+    it('should handle module list as argument', () => {
         var module1 = new Module();
         var module2 = new Module();
         var injector = new Injector([module1, module2]);
@@ -140,7 +140,7 @@ describe('Injector', function() {
         assert(injector.modules[1] === module2);
     });
 
-    it('should handle modules as multiple arguments', function() {
+    it('should handle modules as multiple arguments', () => {
         var module1 = new Module();
         var module2 = new Module();
         var injector = new Injector(module1, module2);
@@ -149,14 +149,14 @@ describe('Injector', function() {
         assert(injector.modules[1] === module2);
     });
 
-    it('should throw exception when passing anything but modules as arguments', function() {
+    it('should throw exception when passing anything but modules as arguments', () => {
         var wheel = new Wheel();
-        assert.throws(function() {
+        assert.throws(() => {
             var injector = new Injector(wheel);
         });
     });
 
-    it('should be able to bind classes without inject to providers', function() {
+    it('should be able to bind classes without inject to providers', () => {
         var module = new Module();
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
@@ -165,8 +165,8 @@ describe('Injector', function() {
 
 });
 
-describe('string injection', function() {
-    it('should inject based on strings', function() {
+describe('string injection', () => {
+    it('should inject based on strings', () => {
         var module = new Module();
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
@@ -175,8 +175,8 @@ describe('string injection', function() {
 });
 
 
-describe('get() with type as string', function() {
-    it('should get object of type where type is a string', function() {
+describe('get() with type as string', () => {
+    it('should get object of type where type is a string', () => {
         var module = new Module();
         module.bind(Wheel).toProvider(WheelProvider);
         var injector = new Injector(module);
@@ -184,15 +184,15 @@ describe('get() with type as string', function() {
     });
 });
 
-describe('Child injectors', function() {
+describe('Child injectors', () => {
 
-    it('should be a function', function() {
+    it('should be a function', () => {
         var module = new Module();
         var injector = new Injector(module);
         assert(typeof injector.getChildInjector === 'function');
     });
 
-    it('should return a new injector', function() {
+    it('should return a new injector', () => {
         var module = new Module();
         var childModule = new Module();
         var injector = new Injector(module);
@@ -200,14 +200,14 @@ describe('Child injectors', function() {
         assert(childInjector);
     });
 
-    it('should create object only from child injector, not from parent injector', function() {
+    it('should create object only from child injector, not from parent injector', () => {
         var injector = new Injector(new Module());
         var childModule = new Module();
         childModule.bind(Wheel).toProvider(WheelProvider);
         var childInjector = injector.getChildInjector(childModule);
         var wheel = childInjector.get(Wheel);
         assert(wheel);
-        assert.throws(function() {
+        assert.throws(() => {
             injector.get(Wheel);
         });
     });

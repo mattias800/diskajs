@@ -84,7 +84,7 @@ describe("Inject decorator", () => {
 
         });
 
-    it("should be able to inject a constructor with arguments, even though @Inject() contains no arguments", function() {
+    it("should be able to inject a constructor with arguments, even though @Inject() contains no arguments", () => {
 
         @Inject()
         class UserAuthenticator {

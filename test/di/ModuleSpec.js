@@ -5,19 +5,19 @@ var assert = require('assert');
 import Wheel from '../../test-resources/car/Wheel';
 import WheelProvider from '../../test-resources/car/WheelProvider';
 
-describe('Module', function() {
+describe('Module', () => {
 
-    it('should throw when toProvider() is supplied no argument', function() {
+    it('should throw when toProvider() is supplied no argument', () => {
         var module = new Module();
-        assert.throws(function() {
+        assert.throws(() => {
                 module.bind(Wheel).toProvider();
             },
             /Wheel/);
     });
 
-    describe('Error messages', function() {
-        it('should say which type is being bound when invalid to-parameter was specified', function() {
-            assert.throws(function() {
+    describe('Error messages', () => {
+        it('should say which type is being bound when invalid to-parameter was specified', () => {
+            assert.throws(() => {
                     var module = new Module();
                     module.bind(Wheel).to(undefined);
                 },
@@ -25,19 +25,19 @@ describe('Module', function() {
             );
         });
 
-        it('should throw when trying to bind same type twice.', function() {
+        it('should throw when trying to bind same type twice.', () => {
             var module = new Module();
             module.bind(Wheel).toProvider(WheelProvider);
-            assert.throws(function() {
+            assert.throws(() => {
                     module.bind(Wheel).toProvider(WheelProvider);
                 },
                 /Wheel/);
         });
 
-        it('should show last successful binding when a binding fails', function() {
+        it('should show last successful binding when a binding fails', () => {
             var module = new Module();
             module.bind(Wheel).toProvider(WheelProvider);
-            assert.throws(function() {
+            assert.throws(() => {
                     module.bind(undefined).to(undefined);
                 },
                 /Wheel/

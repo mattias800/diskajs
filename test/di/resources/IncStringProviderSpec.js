@@ -3,9 +3,9 @@ import IncString from '../../../test-resources/inc/IncString';
 
 var assert = require('assert');
 
-describe('IncStringProvider', function() {
+describe('IncStringProvider', () => {
 
-    it('should return an IncString', function() {
+    it('should return an IncString', () => {
         new IncStringProvider();
         assert(new IncStringProvider().get() instanceof IncString);
     });

@@ -3,9 +3,9 @@ import Module from "../../../src/di/Module";
 
 var assert = require('assert');
 
-describe('ClassBinding', function() {
+describe('ClassBinding', () => {
 
-    it('should store TheClass from construction', function() {
+    it('should store TheClass from construction', () => {
         assert(new ClassBinding(Module).TheClass === Module);
     });
 

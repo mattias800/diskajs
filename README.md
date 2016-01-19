@@ -248,10 +248,9 @@ export default class UserFactory {
 Just inject it.
 
 ```js
-import {Inject, Injector, Singleton} from "diskajs";
+import {Inject, Injector} from "diskajs";
 
 @Inject(Injector)
-@Singleton()
 export default class ClassWithInjector {
 
   injector:Injector;
