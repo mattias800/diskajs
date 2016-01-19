@@ -212,3 +212,28 @@ describe('Child injectors', function() {
         });
     });
 });
+
+describe("Injecting the injector", () => {
+    it("should inject the current injector if specified", () => {
+        @Inject()
+        class ChildClass {
+            getName() {
+                return "it works";
+            }
+        }
+
+        @Inject(Injector)
+        class TestClass {
+            constructor(injector:Injector) {
+                this.name = injector.get(ChildClass).getName();
+            }
+
+        }
+
+        var injector = new Injector(new Module());
+        var test = injector.get(TestClass);
+        assert.equal(test.name, "it works");
+    });
+});
+
+

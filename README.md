@@ -5,12 +5,31 @@ A lightweight DI framework in Javascript, inspired by Guice by Google.
 ## Information on Babel 6
 
 Babel 6 doesn't support decorators, which is an important part of diska.
-If you use Babel 6 to compile your code, you can still use diska without decorators.
-
-The distributed version of diska (in NPM) is compiled with Babel 5 until this is resolved by the Babel team.
- 
-There is a plugin for Babel 6 that adds support for decorators, but we haven't tried it.
+There is a Babel plugin that provides support for legacy decorators, which works the same way they did in Babel 5.
+This plugig works with diska, and it is recommended until Babel 6 supports decorators officially.
 https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
+
+## Releases
+
+#### 1.1.1
+* Support for injecting the injector
+
+#### 1.1.0
+* Support for decorators, @Singleton() and @Inject().
+
+Breaking changes
+* Injection based on constructor argument names no longer supported.
+
+#### 1.0.1
+* Bug fixes
+
+#### 1.0.0 
+* First official release
+* Support for injection based on constructor argument names
+* Support for static inject()
+* Support for modules
+* Support for child injectors
+* Support for providers
 
 ## Installation
 
@@ -223,6 +242,27 @@ export default class UserFactory {
 
 }
 ```
+
+### What if I need the injector to get instances manually?
+
+Just inject it.
+
+```js
+import {Inject, Injector, Singleton} from "diskajs";
+
+@Inject(Injector)
+@Singleton()
+export default class ClassWithInjector {
+
+  injector:Injector;
+
+  constructor(injector:Injector) {
+    this.injector = injector;  
+  }
+  
+}
+```
+
 
 #### What if we want to declare it as singleton in the binding, instead of forcing the class to always be a singleton?
 

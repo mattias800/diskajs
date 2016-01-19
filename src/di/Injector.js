@@ -36,6 +36,9 @@ function get(typeOrTypeName:any, injector:Injector) {
     if (typeOrTypeName === undefined) {
         throw Error('Injector.get() requires one argument.');
     }
+    if (typeOrTypeName === Injector) {
+        return injector;
+    }
     if (listContainsType(injector.injectorStack, typeOrTypeName)) {
         throw Error('Circular injection.');
     }
