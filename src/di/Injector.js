@@ -1,6 +1,5 @@
 /* @flow */
 import Module from './Module';
-import Instantiator from './util/Instantiator';
 import Validator from './util/Validator';
 import ClassBinding from './bindings/types/ClassBinding';
 import InstanceBinding from './bindings/types/InstanceBinding';
