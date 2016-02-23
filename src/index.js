@@ -4,10 +4,13 @@ import Provider from './di/Provider';
 import Inject from "./di/decorators/Inject";
 import Singleton from "./di/decorators/Singleton";
 
+const defaultInjector = new Injector(new Module());
+
 export {
     Module,
     Injector,
     Provider,
     Inject,
-    Singleton
+    Singleton,
+    defaultInjector
 };

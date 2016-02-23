@@ -1,6 +1,5 @@
 /* @flow */
 
-import Instantiator from '../../util/Instantiator';
 import Binding from './Binding';
 import Injector from "../../Injector"
 
@@ -31,7 +30,7 @@ export default class ClassBinding extends Binding {
         } catch (e) {
             throw "Unable to instantiate objects required by " + parseTypeNameFromType(this.TheClass) + ": " + e;
         }
-        return Instantiator.createInstance(this.TheClass, deps);
+        return new this.TheClass(...deps);
     }
 }
 

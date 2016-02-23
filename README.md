@@ -9,12 +9,25 @@ There is a Babel plugin that provides support for legacy decorators, which works
 This plugig works with diska, and it is recommended until Babel 6 supports decorators officially.
 https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
 
+React Native supports custom babelrc as of 0.20 which makes it easy to add this plugin.
+
 ## Releases
 
-#### 1.1.1
+#### 1.1.2 (2016-02-23)
+* New way of creating instances which doesn't create an intermediary object of type Temp. Types are now correct in all ways.
+* Added defaultInjector which is empty, and can be used when not needing to bind any types explicitly in a module.
+
+```js
+import { defaultInjector } from "diskajs";
+import MySweetClass from "./MySweetClass";
+
+let obj = defaultInjector.get(MySweetClass);
+```
+
+#### 1.1.1 (2016-01-16)
 * Support for injecting the injector
 
-#### 1.1.0
+#### 1.1.0 (2015-12-17)
 * Support for decorators, @Singleton() and @Inject().
 
 Breaking changes
@@ -41,9 +54,9 @@ npm install diskajs --save-dev
 
 * Babel 5.x (all features)
 * Babel 6.x (no decorators)
-* Node
 * React Native 0.15 (all features, uses Babel 5)
-* React Native 0.16 (no decorators, uses Babel 6)
+* React Native 0.16-19 (no support for decorators, uses Babel 6)
+* React Native 0.20-0.21 (all features, add legacy decorators plugin to babelrc) 
 
 ## Example code
 
