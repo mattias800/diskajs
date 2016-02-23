@@ -13,6 +13,9 @@ React Native supports custom babelrc as of 0.20 which makes it easy to add this 
 
 ## Releases
 
+#### 1.1.3 (2016-02-23)
+* Bug fix
+
 #### 1.1.2 (2016-02-23)
 * New way of creating instances which doesn't create an intermediary object of type Temp. Types are now correct in all ways.
 * Added defaultInjector which is empty, and can be used when not needing to bind any types explicitly in a module.
