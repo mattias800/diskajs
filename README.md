@@ -11,7 +11,17 @@ https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy
 
 React Native supports custom babelrc as of 0.20 which makes it easy to add this plugin.
 
+## Information on React Native
+
+RN 0.15 and older uses Babel 5 and diska works out of the box.
+RN 0.16-0.19 uses Babel 6, but uses it's own internal babelrc.
+To use diska, you need to patch the babelrc file.
+It is recommended to upgrade to RN 0.20 or later, and then add `babel-plugin-transform-decorators-legacy`.
+
 ## Releases
+
+#### 1.1.4 (2016-02-26)
+* Removed .babelrc from distributed package.
 
 #### 1.1.3 (2016-02-23)
 * Bug fix
@@ -55,11 +65,11 @@ npm install diskajs --save-dev
 
 ## Compatibility
 
-* Babel 5.x (all features)
-* Babel 6.x (no decorators)
-* React Native 0.15 (all features, uses Babel 5)
-* React Native 0.16-19 (no support for decorators, uses Babel 6)
-* React Native 0.20-0.21 (all features, add legacy decorators plugin to babelrc) 
+* Babel 5.x 
+* Babel 6.x (use `babel-plugin-transform-decorators-legacy`)
+* React Native 0.15
+* React Native 0.16-19 (no support for decorators unless you patch RN's internal babelrc, uses Babel 6)
+* React Native 0.20- (add `babel-plugin-transform-decorators-legacy` to babelrc) 
 
 ## Example code
 
